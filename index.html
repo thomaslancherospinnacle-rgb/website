@@ -11,7 +11,6 @@
 :root{
   --brand:#0a2540;
   --accent:#0b5bd3;
-  --bg:#0f1114;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#111;background:#f7f9fc}
@@ -24,38 +23,28 @@ nav .container{display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:12px}
 .brand img{height:30px;filter:grayscale(100%) contrast(110%)}
 .brand span{font-weight:700;letter-spacing:.06em;color:#222}
-.contact-top{font-weight:600}
-.contact-top a{color:#222}
 /* HERO */
 .hero{
-  margin-top:68px;
-  height:62vh;min-height:420px;position:relative;color:#111;display:grid;place-items:center;
-  background:#111;
+  margin-top:68px;height:62vh;min-height:420px;position:relative;color:#111;display:grid;place-items:center;background:#111;
 }
-.hero:before{
-  content:"";position:absolute;inset:0;
+.hero:before{content:"";position:absolute;inset:0;
   background:url('assets/hero-mountain.jpg') center/cover no-repeat fixed;filter:grayscale(100%) contrast(105%) brightness(95%);
 }
 .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,.95))}
 .hero-inner{position:relative;text-align:center;padding:0 20px}
-.hero h1{font-size: clamp(36px,5vw,64px);letter-spacing:.12em;font-weight:700;margin:0 0 10px}
-.hero p{font-size:clamp(14px,2.2vw,18px);opacity:.9;margin:4px 0}
-/* ABOUT */
+.hero h1{font-size:clamp(36px,5vw,64px);letter-spacing:.12em;font-weight:700;margin:0 0 10px}
+/* CARD */
 .card{background:#fff;border:1px solid #eaeff6;border-radius:16px;padding:28px;box-shadow:0 10px 20px rgba(16,24,40,.04)}
 .section{padding:48px 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 @media (max-width:900px){.grid{grid-template-columns:1fr}}
-/* PROFILE */
 .profile{display:flex;gap:20px;align-items:center}
 .profile img{width:96px;height:96px;border-radius:999px;border:3px solid #fff;box-shadow:0 6px 20px rgba(0,0,0,.08);object-fit:cover}
-.badge{font-size:12px;color:#444;background:#eef3fb;border:1px solid #d9e6ff;padding:4px 10px;border-radius:999px;display:inline-block;margin-top:6px}
+.badge{font-size:12px;color:#444;background:#eef3fb;border:1px solid #d9e6ff;padding:4px 10px;border-radius:999px;margin-top:6px;display:inline-block}
 /* FORM */
 form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 form label{font-size:12px;color:#444}
-input,select,textarea{
-  width:100%;padding:12px 12px;border:1px solid #d7dfeb;border-radius:10px;background:#fff;font-size:14px
-}
-textarea{grid-column:1/-1;min-height:90px}
+input,select{width:100%;padding:10px;border:1px solid #d7dfeb;border-radius:10px;background:#fff;font-size:14px}
 button{
   grid-column:1/-1;background:var(--brand);color:#fff;border:none;padding:14px 18px;border-radius:12px;
   font-weight:700;letter-spacing:.02em;cursor:pointer;transition:.2s box-shadow,.2s transform
@@ -64,17 +53,15 @@ button:hover{box-shadow:0 10px 22px rgba(10,37,64,.15);transform:translateY(-1px
 .helper{font-size:12px;color:#666;margin-top:6px}
 /* CARRIERS */
 .carriers{background:#0d0f12;color:#fff;padding:60px 0;text-align:center}
-.carriers h2{margin:0 0 18px;font-size:28px;letter-spacing:.1em}
-.carriers p{opacity:.7;margin:0 0 30px}
 .carriers img{width:70%;max-width:1000px;margin:auto;display:block;filter:grayscale(100%) brightness(1.1)}
-/* MODAL FADE */
+/* MODAL */
 #qrModal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:1000;opacity:0;transition:opacity .5s ease;}
 #qrModal.show{display:flex;opacity:1;}
 .modal-content{background:white;padding:30px 20px;border-radius:12px;text-align:center;max-width:320px;animation:fadeIn .5s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .modal-content button{margin-top:12px;padding:8px 14px;background:#0a2540;color:white;border:none;border-radius:6px;cursor:pointer;}
 /* FOOTER */
-footer{padding:28px 0;color:#445; font-size:14px}
+footer{padding:28px 0;color:#445;font-size:14px}
 .links{display:flex;gap:16px;flex-wrap:wrap}
 .small{font-size:12px;color:#667}
 </style>
@@ -118,16 +105,24 @@ footer{padding:28px 0;color:#445; font-size:14px}
       </p>
     </div>
 
-    <div class="card">
+    <div class="card" id="formCard">
       <h3 style="margin-top:0">Learn More / Get a Free Quote</h3>
-      <p class="small" style="margin:0 0 10px">Answer a few basics. I’ll follow up with options — no obligation.</p>
-      <form id="quoteForm">
-        <label>First Name</label>
-        <input type="text" name="first_name" placeholder="John" required>
-        <label>Last Name</label>
-        <input type="text" name="last_name" placeholder="Doe" required>
-        <label>Best Time to Call</label>
-        <input type="text" name="btc" placeholder="e.g., Tuesday 3 PM" required>
+      <p class="small">Answer a few basics. I’ll follow up with options — no obligation.</p>
+      <form id="quoteForm" action="https://formspree.io/f/mqaygpjv" method="POST">
+        <label>First Name</label><input type="text" name="first_name" required>
+        <label>Last Name</label><input type="text" name="last_name" required>
+        <label>Date of Birth</label><input type="date" name="dob" required>
+        <label>Address</label><input type="text" name="address" placeholder="123 Main St" required>
+        <label>City</label><input type="text" name="city" required>
+        <label>State</label>
+        <select name="state" required>
+          <option value="">Select</option><option>MI</option><option>OH</option><option>FL</option><option>TX</option><option>CA</option><option>Other</option>
+        </select>
+        <label>Zip Code</label><input type="text" name="zip" required>
+        <label>Best Day to Call</label>
+        <select name="day" required><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option></select>
+        <label>Time</label><input type="text" name="time" placeholder="3:00" required>
+        <label>AM / PM</label><select name="ampm" required><option>AM</option><option>PM</option></select>
         <button type="submit">Send Message</button>
       </form>
     </div>
@@ -137,7 +132,6 @@ footer{padding:28px 0;color:#445; font-size:14px}
 <section class="carriers">
   <div class="container">
     <h2>OUR CARRIERS</h2>
-    <p>Access to top-rated insurance companies, giving every family the right fit.</p>
     <img src="assets/carriers-full.png" alt="Partner carriers">
   </div>
 </section>
@@ -155,12 +149,11 @@ footer{padding:28px 0;color:#445; font-size:14px}
   </div>
 </footer>
 
-<!-- QR Modal -->
+<!-- QR MODAL -->
 <div id="qrModal">
   <div class="modal-content">
-    <h2>Text Me!</h2>
+    <h2>Scan to Text Me</h2>
     <div id="qrCode"></div>
-    <p style="font-size:14px;color:#555;">Scan this code to send your message instantly.</p>
     <button onclick="closeQR()">Close</button>
   </div>
 </div>
@@ -172,13 +165,17 @@ function closeQR(){
   modal.classList.remove('show');
   setTimeout(()=>modal.style.display='none',500);
 }
-document.getElementById('quoteForm').addEventListener('submit',function(e){
+document.getElementById('quoteForm').addEventListener('submit',async function(e){
   e.preventDefault();
-  const name=document.querySelector('[name=first_name]').value.trim();
-  const btc=document.querySelector('[name=btc]').value.trim();
-  const msg=`Hi Thomas, my name is ${name}, came across your information and I want to learn more. The best time to call me is ${btc}.`;
-  const encoded=encodeURIComponent(msg);
-  const sms=`sms:+15862246692?body=${encoded}`;
+  const form=this;
+  const data=new FormData(form);
+  await fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}});
+  document.getElementById('formCard').innerHTML="<h3>✅ Message sent!</h3><p>Thank you — I’ll reach out soon.</p>";
+
+  const name=data.get('first_name')+" "+data.get('last_name');
+  const day=data.get('day'), time=data.get('time'), ampm=data.get('ampm');
+  const msg=`Hi Thomas, my name is ${name}. I came across your information and want to learn more. The best time to call me is ${day} ${time} ${ampm}.`;
+  const sms=`sms:+15862246692?body=${encodeURIComponent(msg.substring(0,200))}`; // Keep short
   const qrContainer=document.getElementById('qrCode');
   qrContainer.innerHTML='';
   new QRCode(qrContainer,{text:sms,width:150,height:150});
