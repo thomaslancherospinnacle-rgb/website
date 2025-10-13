@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thomas Lancheros | Pinnacle Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#0a2540;
+  --accent:#0b5bd3;
+  --bg:#0f1114;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#111;background:#f7f9fc}
+a{color:var(--accent);text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+/* NAV */
+nav{position:fixed;inset:0 0 auto 0;height:68px;display:flex;align-items:center;z-index:20;
+  background:rgba(255,255,255,.9);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid #e9eef5}
+nav .container{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{height:30px;filter:grayscale(100%) contrast(110%)}
+.brand span{font-weight:700;letter-spacing:.06em;color:#222}
+.contact-top{font-weight:600}
+.contact-top a{color:#222}
+/* HERO */
+.hero{
+  margin-top:68px;
+  height:62vh;min-height:420px;position:relative;color:#111;display:grid;place-items:center;
+  background:#111;
+}
+.hero:before{
+  content:"";position:absolute;inset:0;
+  background:url('assets/hero-mountain.jpg') center/cover no-repeat fixed;filter:grayscale(100%) contrast(105%) brightness(95%);
+}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,.95))}
+.hero-inner{position:relative;text-align:center;padding:0 20px}
+.hero h1{font-size: clamp(36px,5vw,64px);letter-spacing:.12em;font-weight:700;margin:0 0 10px}
+.hero p{font-size:clamp(14px,2.2vw,18px);opacity:.9;margin:4px 0}
+/* ABOUT */
+.card{background:#fff;border:1px solid #eaeff6;border-radius:16px;padding:28px;box-shadow:0 10px 20px rgba(16,24,40,.04)}
+.section{padding:48px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+/* PROFILE */
+.profile{display:flex;gap:20px;align-items:center}
+.profile img{width:96px;height:96px;border-radius:999px;border:3px solid #fff;box-shadow:0 6px 20px rgba(0,0,0,.08);object-fit:cover}
+.badge{font-size:12px;color:#444;background:#eef3fb;border:1px solid #d9e6ff;padding:4px 10px;border-radius:999px;display:inline-block;margin-top:6px}
+/* FORM */
+form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+form label{font-size:12px;color:#444}
+input,select,textarea{
+  width:100%;padding:12px 12px;border:1px solid #d7dfeb;border-radius:10px;background:#fff;font-size:14px
+}
+textarea{grid-column:1/-1;min-height:90px}
+button{
+  grid-column:1/-1;background:var(--brand);color:#fff;border:none;padding:14px 18px;border-radius:12px;
+  font-weight:700;letter-spacing:.02em;cursor:pointer;transition:.2s box-shadow,.2s transform
+}
+button:hover{box-shadow:0 10px 22px rgba(10,37,64,.15);transform:translateY(-1px)}
+.helper{font-size:12px;color:#666;margin-top:6px}
+/* CARRIERS */
+.carriers{background:#0d0f12;color:#fff;padding:60px 0;text-align:center}
+.carriers h2{margin:0 0 18px;font-size:28px;letter-spacing:.1em}
+.carriers p{opacity:.7;margin:0 0 30px}
+.carriers img{width:70%;max-width:1000px;margin:auto;display:block;filter:grayscale(100%) brightness(1.1)}
+/* QR SECTION */
+.qr-section{background:#fff;padding:60px 0;text-align:center}
+.qr-section img{width:160px;height:160px;border-radius:8px;border:1px solid #ccc}
+.qr-section p{color:#444;font-size:14px;margin:14px auto;max-width:600px;line-height:1.6}
+/* FOOTER */
+footer{padding:28px 0;color:#445; font-size:14px}
+.links{display:flex;gap:16px;flex-wrap:wrap}
+.small{font-size:12px;color:#667}
+</style>
+</head>
+<body>
+<nav>
+  <div class="container">
+    <div class="brand">
+      <img src="assets/pinnacle_logo.png" alt="Pinnacle Life Group logo"/>
+      <span>Pinnacle Agency</span>
+    </div>
+    <div class="contact-top">
+      <a href="tel:15862246692">(586) 224-6692</a> &nbsp;|&nbsp;
+      <a href="mailto:thomaslancheros.pinnacle@gmail.com">thomaslancheros.pinnacle@gmail.com</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>PEOPLE &gt; PROFIT</h1>
+    <p>Mortgage Protection &nbsp;•&nbsp; Final Expense (FEX)</p>
+    <p>Licensed in multiple states — simple guidance, clear options.</p>
+  </div>
+</section>
+
+<main class="container">
+  <section class="section grid">
+    <div class="card">
+      <div class="profile">
+        <img src="assets/Headshot.png" alt="Thomas Lancheros headshot">
+        <div>
+          <h3 style="margin:0">Thomas Lancheros</h3>
+          <div>Licensed Insurance Agent | Pinnacle Agency</div>
+          <div class="badge">NPN: 21695796</div>
+        </div>
+      </div>
+      <p style="margin-top:16px">
+        I help families keep their homes and protect their legacies. Mortgage Protection can cover payments during life’s toughest moments,
+        and Final Expense ensures end‑of‑life costs don’t burden loved ones. No pressure — just straight answers and quotes that fit your budget.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0">Learn More / Get a Free Quote</h3>
+      <p class="small" style="margin:0 0 10px">Answer a few basics. I’ll follow up with options — no obligation.</p>
+      <form action="https://formspree.io/f/mqaygpjv" method="POST">
+        <div>
+          <label>First Name</label>
+          <input type="text" name="first_name" placeholder="John" required>
+        </div>
+        <div>
+          <label>Last Name</label>
+          <input type="text" name="last_name" placeholder="Doe" required>
+        </div>
+
+        <div>
+          <label>Date of Birth</label>
+          <input type="date" name="dob" required>
+        </div>
+        <div>
+          <label>State</label>
+          <select name="state" required>
+            <option value="">Select state</option>
+            <option>MI - Michigan</option>
+            <option>OH - Ohio</option>
+            <option>FL - Florida</option>
+            <option>TX - Texas</option>
+            <option>CA - California</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Coverage Type</label>
+          <select name="coverage_type" required>
+            <option value="">Choose one</option>
+            <option>Mortgage Protection</option>
+            <option>Final Expense (FEX)</option>
+            <option>Both / Not Sure</option>
+          </select>
+        </div>
+        <div>
+          <label>Tobacco Use</label>
+          <select name="tobacco" required>
+            <option value="">Select</option>
+            <option>No</option>
+            <option>Yes</option>
+            <option>Former</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Phone</label>
+          <input type="tel" name="phone" placeholder="(555) 555-5555" required>
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="email" name="email" placeholder="you@example.com" required>
+        </div>
+
+        <div style="grid-column:1 / -1">
+          <label>Street Address</label>
+          <input type="text" name="address" placeholder="123 Main St" required>
+        </div>
+
+        <textarea name="notes" placeholder="Any medications or health notes (optional)"></textarea>
+        <button type="submit">Get My Free Quote</button>
+        <div class="helper">By submitting, you agree to be contacted about your quote. Your information stays private.</div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<section class="carriers">
+  <div class="container">
+    <h2>OUR CARRIERS</h2>
+    <p>Access to top-rated insurance companies, giving every family the right fit.</p>
+    <img src="assets/carriers-full.png" alt="Partner carriers">
+  </div>
+</section>
+
+<section class="qr-section">
+  <h2>SCAN TO TEXT ME</h2>
+  <p>Open your phone’s camera and scan the QR below — it will automatically open your text app with a message ready to send:</p>
+  <img src="assets/textme-qr.png" alt="Text Thomas QR Code">
+  <p>Message prefilled: “Hi Thomas, my name is YOURNAME, came across your information and I want to learn more. The best time to call me is day at time.”</p>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="links">
+      <a href="https://nipr.com/licensing-center/look-up-a-national-producer-number" target="_blank">Find me on NIPR</a>
+      <a href="https://difs.state.mi.us/locators?searchtype=InsAgent" target="_blank">Michigan DOI</a>
+      <a href="https://gateway.insurance.ohio.gov/UI/ODI.Agent.Public.UI/AgentSearch.mvc/DisplaySearch" target="_blank">Ohio DOI</a>
+    </div>
+    <div class="small" style="margin-top:10px">
+      © 2025 Thomas Lancheros — Pinnacle Agency • (586) 224‑6692 • thomaslancheros.pinnacle@gmail.com
+    </div>
+  </div>
+</footer>
+</body>
+</html>
