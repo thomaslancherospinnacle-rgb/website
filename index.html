@@ -188,13 +188,13 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
   try {
     await fetch(form.action, {
       method: 'POST',
-      mode: 'no-cors',  // ✅ This bypasses CORS policy
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(jsonData)
+      mode: 'no-cors',
+      body: new URLSearchParams(jsonData)
     });
-  } catch(err) {
+  } catch (err) {
     console.error('Submission failed:', err);
   }
+
 
   document.getElementById('formCard').innerHTML="<h3>✅ Message sent!</h3><p>Thank you — I’ll reach out soon.</p>";
 
