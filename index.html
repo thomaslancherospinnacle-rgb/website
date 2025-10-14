@@ -8,10 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --brand:#0a2540;
-  --accent:#0b5bd3;
-}
+:root{--brand:#0a2540;--accent:#0b5bd3;}
 *{box-sizing:border-box}
 body{margin:0;font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#111;background:#f7f9fc}
 a{color:var(--accent);text-decoration:none}
@@ -24,12 +21,9 @@ nav .container{display:flex;align-items:center;justify-content:space-between}
 .brand img{height:30px;filter:grayscale(100%) contrast(110%)}
 .brand span{font-weight:700;letter-spacing:.06em;color:#222}
 /* HERO */
-.hero{
-  margin-top:68px;height:62vh;min-height:420px;position:relative;color:#111;display:grid;place-items:center;background:#111;
-}
+.hero{margin-top:68px;height:62vh;min-height:420px;position:relative;color:#111;display:grid;place-items:center;background:#111;}
 .hero:before{content:"";position:absolute;inset:0;
-  background:url('assets/hero-mountain.jpg') center/cover no-repeat fixed;filter:grayscale(100%) contrast(105%) brightness(95%);
-}
+  background:url('assets/hero-mountain.jpg') center/cover no-repeat fixed;filter:grayscale(100%) contrast(105%) brightness(95%);}
 .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,.95))}
 .hero-inner{position:relative;text-align:center;padding:0 20px}
 .hero h1{font-size:clamp(36px,5vw,64px);letter-spacing:.12em;font-weight:700;margin:0 0 10px}
@@ -45,10 +39,8 @@ nav .container{display:flex;align-items:center;justify-content:space-between}
 form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 form label{font-size:12px;color:#444}
 input,select{width:100%;padding:10px;border:1px solid #d7dfeb;border-radius:10px;background:#fff;font-size:14px}
-button{
-  grid-column:1/-1;background:var(--brand);color:#fff;border:none;padding:14px 18px;border-radius:12px;
-  font-weight:700;letter-spacing:.02em;cursor:pointer;transition:.2s box-shadow,.2s transform
-}
+button{grid-column:1/-1;background:var(--brand);color:#fff;border:none;padding:14px 18px;border-radius:12px;
+  font-weight:700;letter-spacing:.02em;cursor:pointer;transition:.2s box-shadow,.2s transform}
 button:hover{box-shadow:0 10px 22px rgba(10,37,64,.15);transform:translateY(-1px)}
 .helper{font-size:12px;color:#666;margin-top:6px}
 /* CARRIERS */
@@ -151,73 +143,62 @@ footer{padding:28px 0;color:#445;font-size:14px}
 
 <!-- QR MODAL -->
 <div id="qrModal">
-  <div class="modal-content">
-    <h2>Scan to Text Me</h2>
+  <div class="modal-content" id="modalContent">
+    <h2 id="modalTitle">Scan to Text Me</h2>
     <div id="qrCode"></div>
+    <div id="mobileTextOption" style="display:none;margin-top:20px;">
+      <a id="textMeButton"
+         href="sms:+15862246692?body=Hi%20Thomas%2C%20my%20name%20is%20YOURNAME%2E%20I%20came%20across%20your%20information%20and%20want%20to%20learn%20more.%20The%20best%20time%20to%20call%20me%20is%20DAY%20at%20TIME."
+         style="background:#0a2540;color:white;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;">
+         📱 Click to Text Me
+      </a>
+      <p style="font-size:14px;color:#555;margin-top:8px;">(Opens your messaging app)</p>
+    </div>
     <button onclick="closeQR()">Close</button>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 function closeQR(){
-  const modal = document.getElementById('qrModal');
+  const modal=document.getElementById('qrModal');
   modal.classList.remove('show');
   setTimeout(()=>modal.style.display='none',500);
 }
 
 document.getElementById('quoteForm').addEventListener('submit', async function(e){
   e.preventDefault();
-  const form = this;
-  const data = new FormData(form);
+  const form=this;
+  const data=new FormData(form);
 
-  // ✅ Build message before fetch to avoid async string mutation
-  const name = (data.get('first_name') || '').trim() + ' ' + (data.get('last_name') || '').trim();
-  const day = data.get('day') || '';
-  const time = data.get('time') || '';
-  const ampm = data.get('ampm') || '';
+  const name=(data.get('first_name')||'').trim()+' '+(data.get('last_name')||'').trim();
+  const day=data.get('day')||'';
+  const time=data.get('time')||'';
+  const ampm=data.get('ampm')||'';
+  const msg=`Hi Thomas, my name is ${name}. I came across your information and want to learn more. The best time to call me is ${day} ${time} ${ampm}.`;
 
-  const msg = `Hi Thomas, my name is ${name}. I came across your information and want to learn more. The best time to call me is ${day} ${time} ${ampm}.`;
+  try{await fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}});}catch(err){console.error('Form submission failed:',err);}
 
-  // ✅ Submit form safely first
-  try {
-    const res = await fetch(form.action, {
-      method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    });
-  } catch (err) {
-    console.error('Form submission failed:', err);
+  document.getElementById('formCard').innerHTML="<h3>✅ Message sent!</h3><p>Thank you — I’ll reach out soon.</p>";
+
+  const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const qrContainer=document.getElementById('qrCode');
+  const modal=document.getElementById('qrModal');
+  const modalTitle=document.getElementById('modalTitle');
+  const mobileOption=document.getElementById('mobileTextOption');
+  qrContainer.innerHTML='';
+  mobileOption.style.display='none';
+
+  if(isMobile){
+    modalTitle.textContent='Text Me Directly!';
+    mobileOption.style.display='block';
+  }else{
+    const sms=`sms:+15862246692?body=${encodeURIComponent(msg)}`;
+    new QRCode(qrContainer,{text:sms,width:150,height:150});
   }
 
-  // ✅ Replace form with confirmation
-  document.getElementById('formCard').innerHTML = `
-    <h3>✅ Message sent!</h3>
-    <p>Thank you — I’ll reach out soon.</p>
-  `;
-
-  // ✅ Generate SMS QR (properly encoded, single pass)
-  const sms = `sms:+15862246692?body=${encodeURIComponent(msg)}`;
-  const qrContainer = document.getElementById('qrCode');
-  qrContainer.innerHTML = '';
-
-  try {
-    new QRCode(qrContainer, {
-      text: sms,
-      width: 150,
-      height: 150,
-      correctLevel: QRCode.CorrectLevel.L
-    });
-  } catch (err) {
-    console.error('QR generation error:', err);
-    qrContainer.innerHTML = `<p style="font-size:14px;color:#555;">Couldn’t generate QR. Please text manually:<br><b>(586) 224-6692</b></p>`;
-  }
-
-  // ✅ Fade-in modal after QR render
-  const modal = document.getElementById('qrModal');
-  modal.style.display = 'flex';
-  setTimeout(()=>modal.classList.add('show'), 50);
+  modal.style.display='flex';
+  setTimeout(()=>modal.classList.add('show'),50);
 });
 </script>
 </body>
