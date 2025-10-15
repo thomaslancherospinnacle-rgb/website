@@ -101,27 +101,48 @@ footer{padding:28px 0;color:#445;font-size:14px}
       <h3 style="margin-top:0">Learn More / Get a Free Quote</h3>
       <p class="small">Answer a few basics. I’ll follow up with options — no obligation.</p>
       <form id="quoteForm" action="https://script.google.com/macros/s/AKfycbyXboQwW3_qm6R-KGzd0q1kx4xvJPYYg0haUQdxJkVYhyRVwM_7i_tvhzl5j72XWO7GhQ/exec" method="POST">
-        <label>First Name</label><input type="text" name="first_name" required>
-        <label>Last Name</label><input type="text" name="last_name" required>
-        <label>Date of Birth</label><input type="date" name="dob" required>
-        <label>Address</label><input type="text" name="address" placeholder="123 Main St" required>
-        <label>City</label><input type="text" name="city" required>
-        <label>State</label>
-        <select name="state" required>
-          <option value="">Select</option><option>MI</option><option>OH</option><option>FL</option>
+        <label for="first_name">First Name</label>
+        <input id="first_name" type="text" name="first_name" required>
+      
+        <label for="last_name">Last Name</label>
+        <input id="last_name" type="text" name="last_name" required>
+      
+        <label for="dob">Date of Birth</label>
+        <input id="dob" type="date" name="dob" required>
+      
+        <label for="address">Address</label>
+        <input id="address" type="text" name="address" placeholder="123 Main St" required>
+      
+        <label for="city">City</label>
+        <input id="city" type="text" name="city" required>
+      
+        <label for="state">State</label>
+        <select id="state" name="state" required>
+          <option value="">Select</option>
+          <option>MI</option><option>OH</option><option>FL</option>
           <option>TX</option><option>CA</option><option>Other</option>
         </select>
-        <label>Zip Code</label><input type="text" name="zip" required>
-        <label>Best Day to Call</label>
-        <select name="day" required>
+      
+        <label for="zip">Zip Code</label>
+        <input id="zip" type="text" name="zip" required>
+      
+        <label for="day">Best Day to Call</label>
+        <select id="day" name="day" required>
           <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
           <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
         </select>
-        <label>Time</label><input type="text" name="time" placeholder="3:00" required>
-        <label>AM / PM</label>
-        <select name="ampm" required><option>AM</option><option>PM</option></select>
+      
+        <label for="time">Time</label>
+        <input id="time" type="text" name="time" placeholder="3:00" required>
+      
+        <label for="ampm">AM / PM</label>
+        <select id="ampm" name="ampm" required>
+          <option>AM</option><option>PM</option>
+        </select>
+      
         <button type="submit">Send Message</button>
       </form>
+
     </div>
   </section>
 </main>
