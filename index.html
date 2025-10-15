@@ -203,7 +203,6 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
   const time=data.get('time')||'';
   const ampm=data.get('ampm')||'';
 
-  const msgShort=`Hi Thomas, this is ${first} ${last}. Best time: ${day} ${time}${ampm}.`;
   const msgFull=`Hi Thomas, my name is ${first} ${last}. I came across your information and want to learn more. The best time to call me is ${day} ${time}${ampm}.`;
 
   try {
