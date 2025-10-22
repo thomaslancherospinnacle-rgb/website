@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dial Tracker</title>
+<style>
+  body {
+    background:#0e0e0e;
+    color:#fff;
+    text-align:center;
+    font-family:Arial, sans-serif;
+    padding:20px;
+  }
+  h1 {margin-bottom:10px;}
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:15px;
+    margin-top:30px;
+  }
+  button {
+    padding:25px;
+    font-size:1.5rem;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    transition:transform 0.1s ease;
+    color:#fff;
+  }
+  button:active {transform:scale(0.95);}
+  .Dials {background:#3498db;}
+  .Pickups {background:#8e44ad;}
+  .Disconnected {background:#e74c3c;}
+  .Appointments {background:#2980b9;}
+  .Quotes {background:#1abc9c;}
+  .Apps {background:#9b59b6;}
+  .Closes {background:#27ae60;}
+  .Refs {background:#f1c40f;color:#000;}
+  #status {margin-top:20px;font-weight:bold;}
+</style>
+</head>
+<body>
+  <h1>📞 Dial Tracker</h1>
+  <p>Finds today's row or creates one, then adds +1 to the selected column.</p>
+
+  <div class="grid">
+    <button class="Dials" onclick="send('Dials')">Dials</button>
+    <button class="Pickups" onclick="send('Pickups')">Pickups</button>
+    <button class="Disconnected" onclick="send('Disconnected')">Disconnected</button>
+    <button class="Appointments" onclick="send('Appointments')">Appointments</button>
+    <button class="Quotes" onclick="send('Quotes')">Quotes</button>
+    <button class="Apps" onclick="send('Apps')">Apps</button>
+    <button class="Closes" onclick="send('Closes')">Closes</button>
+    <button class="Refs" onclick="send('Refs')">Refs</button>
+  </div>
+
+  <div id="status"></div>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbzIxRbIkCTH5xfw32TPCdN7UTvfdlM-eQei5FqnuN1L1GNh0jbPomKw9BzHHfZ1X_t1/exec";
+
+async function send(action){
+  const status = document.getElementById("status");
+  status.textContent = `Logging ${action}...`;
+  try{
+    await fetch(scriptURL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({action})
+    });
+    status.textContent = `✅ ${action} recorded for today`;
+  }catch(e){
+    status.textContent = "❌ Failed. Check your script URL.";
+  }
+}
+</script>
+</body>
+</html>
