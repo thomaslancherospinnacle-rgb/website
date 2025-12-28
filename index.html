@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Thomas Lancheros | American Income Life </title>
+<title>Thomas Lancheros | American Income Life</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -12,8 +12,9 @@
 :root{--brand:#0a2540;--accent:#0b5bd3;}
 *{box-sizing:border-box}
 body{margin:0;font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#111;background:#f7f9fc}
-a{color: #ffffff;text-decoration:none}
+a{color:#ffffff;text-decoration:none}
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
+
 /* NAV */
 nav{
   position:fixed;
@@ -22,36 +23,64 @@ nav{
   display:flex;
   align-items:center;
   z-index:20;
-  background: rgb(0, 85, 140);
+  background:rgb(0, 85, 140);
   backdrop-filter:saturate(180%) blur(10px);
-  border-bottom:1px solid #e9eef5
-  }
-nav .container{display:flex;align-items:center;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:12px}
-.brand img{height:50px;filter:grayscale(0%) contrast(110%)}
-.brand span{font-weight:700;letter-spacing:.06em;color:#222}
-/* HERO */
-.hero{margin-top:68px;height:62vh;min-height:420px;position:relative;color:#111;display:grid;place-items:center;background:#111;}
-.hero:before{content:"";position:absolute;inset:0;
-  background:url('hero-mountain.jpg') center/cover no-repeat fixed;filter:grayscale(60%) contrast(105%) brightness(95%);}
+  border-bottom:1px solid #e9eef5;
+}
+nav .container{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand img{height:50px;filter:grayscale(0%) contrast(110%);display:block}
+
+/* Make CSK logo same height as AIL + square */
+.csk-logo{height:50px;width:50px;object-fit:contain;display:block}
+
+.contact-top{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;text-align:center;line-height:1.1}
+
+/* HERO (full-bleed) */
+.hero{
+  margin-top:68px;
+  height:62vh;
+  min-height:420px;
+  position:relative;
+  display:grid;
+  place-items:center;
+  background:#111;
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  margin-right:calc(50% - 50vw);
+  overflow:hidden;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url('hero-mountain.jpg') center/cover no-repeat;
+  filter:grayscale(60%) contrast(105%) brightness(95%);
+  transform:scale(1.02);
+}
 .hero:after{content:"";position:absolute;inset:0;}
-.hero-inner{position:relative;text-align:center;padding:0 20px}
-.hero h1{font-size:clamp(36px,5vw,64px);letter-spacing:.12em;font-weight:700;margin:0 0 10px}
+.hero-inner{position:relative;text-align:center;padding:0 20px;color:#fff}
+.hero-inner p{margin:8px 0;font-weight:600;text-shadow:0 6px 18px rgba(0,0,0,.35)}
+
 /* CARD */
-.card{background:#fff;border:1px solid #eaeff6;border-radius:16px;padding:28px;box-shadow:0 10px 20px rgba(16,24,40,.04)}
 .section{padding:48px 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-@media (max-width:900px){.grid{grid-template-columns:1fr}}
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr}
+  .contact-top{justify-content:flex-start;text-align:left}
+}
+.card{background:#fff;border:1px solid #eaeff6;border-radius:16px;padding:28px;box-shadow:0 10px 20px rgba(16,24,40,.04)}
 .profile{display:flex;gap:20px;align-items:center}
 .profile img{width:96px;height:96px;border-radius:999px;border:3px solid #fff;box-shadow:0 6px 20px rgba(0,0,0,.08);object-fit:cover}
 .badge{font-size:12px;color:#444;background:#eef3fb;border:1px solid #d9e6ff;padding:4px 10px;border-radius:999px;margin-top:6px;display:inline-block}
+
 /* FORM */
 form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 form label{font-size:12px;color:#444}
 input,select{width:100%;padding:10px;border:1px solid #d7dfeb;border-radius:10px;background:#fff;font-size:14px}
 button{
   grid-column:1/-1;
-  background: #2c863a;
+  background:#2c863a;
   color:#fff;
   border:none;
   padding:14px 18px;
@@ -60,18 +89,17 @@ button{
   letter-spacing:.02em;
   cursor:pointer;
   transition:.2s box-shadow,.2s transform
-  }
+}
 button:hover{box-shadow:0 10px 22px rgba(10,37,64,.15);transform:translateY(-1px)}
 .helper{font-size:12px;color:#666;margin-top:6px}
-/* CARRIERS */
-.carriers{background:#000000;color:#fff;padding:60px 0;text-align:center}
-.carriers img{width:70%;max-width:1000px;margin:auto;display:block;filter:grayscale(100%) brightness(1.1)}
+
 /* MODAL */
 #qrModal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:1000;opacity:0;transition:opacity .5s ease;}
 #qrModal.show{display:flex;opacity:1;}
 .modal-content{background:white;padding:30px 20px;border-radius:12px;text-align:center;max-width:320px;animation:fadeIn .5s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .modal-content button{margin-top:12px;padding:8px 14px;background:#0a2540;color:white;border:none;border-radius:6px;cursor:pointer;}
+
 /* FOOTER */
 footer{padding:28px 0;color:#445;font-size:14px}
 .links{display:flex;gap:16px;flex-wrap:wrap}
@@ -79,156 +107,118 @@ footer{padding:28px 0;color:#445;font-size:14px}
 </style>
 </head>
 <body>
+
 <nav>
   <div class="container">
     <div class="brand">
-      <img src="assets/American_Income_Life_logo.png" alt="American Income Life logo"/>
-      <span>   </span>
+      <img src="assets/American_Income_Life_logo.png" alt="American Income Life logo" />
     </div>
+
     <div class="contact-top">
-      <a href="tel:15862246692">(586) 224-6692</a> &nbsp;|&nbsp;
+      <a href="tel:15862246692">(586) 224-6692</a>
+      <span aria-hidden="true">|</span>
       <a href="mailto:thomaslancheros.ail@gmail.com">thomaslancheros.ail@gmail.com</a>
-      <span>   </span>
     </div>
-    <div>
-      <img src="assets/childsafekitlogo.png" alt="Child Safe Kit"/>
+
+    <div class="nav-right">
+      <img class="csk-logo" src="assets/childsafekitlogo.png" alt="Child Safe Kit" />
     </div>
   </div>
 </nav>
-<main class="container">
+
+<main>
   <section class="hero">
     <div class="hero-inner">
       <p>Child Safety Kits &nbsp;•&nbsp; Last Testament Kits</p>
       <p>Licensed in multiple states — simple guidance, clear options.</p>
     </div>
   </section>
-   <div class="container">
-    <section class="section grid">
-      <div class="card">
-        <div class="profile">
-          <img src="assets/Headshot.png" alt="Thomas Lancheros headshot">
-          <div>
-            <h3 style="margin:0">Thomas Lancheros</h3>
-            <div>Licensed Insurance Agent | American Income Life</div>
-            <div class="badge">NPN: 21695796</div>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid">
+        <div class="card">
+          <div class="profile">
+            <img src="assets/Headshot.png" alt="Thomas Lancheros headshot" />
+            <div>
+              <h3 style="margin:0">Thomas Lancheros</h3>
+              <div>Licensed Insurance Agent | American Income Life</div>
+              <div class="badge">NPN: 21695796</div>
+            </div>
           </div>
+
+          <p style="margin-top:16px">
+            I work with union members and their families to make sure they never face life’s toughest moments alone. Losing a loved one is hard enough — the financial stress that follows shouldn’t be part of it. My mission is to help families lock in Final Expense protection that provides relief, dignity, and stability when it’s needed most.
+            <br><br>
+            Every conversation I have is personal. I listen to what matters to you, what you’re worried about, and what you want to protect. From there, I build a plan that fits your life, your budget, and your long-term goals. No confusing jargon. No pressure. Just real solutions designed to keep families safe for generations.
+            <br><br>
+            Union members give so much to protect their communities and industries. I’m proud to give something back by ensuring their benefits are understood, maximized, and supported with lifetime coverage.
+          </p>
         </div>
-      <p style="margin-top:16px">
-        I work with union members and their families to make sure they never face life’s toughest moments alone. Losing a loved one is hard enough — the financial stress that follows shouldn’t be part of it. My mission is to help families lock in Final Expense protection that provides relief, dignity, and stability when it’s needed most.
 
-Every conversation I have is personal. I listen to what matters to you, what you’re worried about, and what you want to protect. From there, I build a plan that fits your life, your budget, and your long-term goals. No confusing jargon. No pressure. Just real solutions designed to keep families safe for generations.
+        <div class="card" id="formCard">
+          <h3 style="margin-top:0">Protect your family TODAY</h3>
+          <p class="small">Answer a few basics. I’ll follow up with options — no obligation.</p>
 
-Union members give so much to protect their communities and industries. I’m proud to give something back by ensuring their benefits are understood, maximized, and supported with lifetime coverage.
-      </p>
-    </div>
+          <form id="quoteForm" action="https://script.google.com/macros/s/AKfycbzIgwWQkjal7rSrwXIKj69dxWwO67AywpgBwk80ZwtR33_9BEXUYuPgxmK7arntN76T5w/exec" method="POST">
+            <label for="first_name">First Name</label>
+            <input id="first_name" type="text" name="first_name" required>
 
-    <div class="card" id="formCard">
-      <h3 style="margin-top:0">Protect your family TODAY</h3>
-      <p class="small">Answer a few basics. I’ll follow up with options — no obligation.</p>
-      <form id="quoteForm" action="https://script.google.com/macros/s/AKfycbzIgwWQkjal7rSrwXIKj69dxWwO67AywpgBwk80ZwtR33_9BEXUYuPgxmK7arntN76T5w/exec" method="POST">
-        <label for="first_name">First Name</label>
-        <input id="first_name" type="text" name="first_name" required>
-      
-        <label for="last_name">Last Name</label>
-        <input id="last_name" type="text" name="last_name" required>
+            <label for="last_name">Last Name</label>
+            <input id="last_name" type="text" name="last_name" required>
 
-        <label for="phone">Cellphone</label>
-        <input id="phone" type="text" name="phone" required>
+            <label for="phone">Cellphone</label>
+            <input id="phone" type="text" name="phone" required>
 
-        <label for="email">Email</label>
-        <input id="email" type="text" name="email" required>
-      
-        <label for="dob">Date of Birth</label>
-        <input id="dob" type="date" name="dob" required>
-      
-        <label for="address">Address</label>
-        <input id="address" type="text" name="address" placeholder="123 Main St" required>
-      
-        <label for="city">City</label>
-        <input id="city" type="text" name="city" required>
-      
-        <label for="state">State</label>
-        <select id="state" name="state" required>
-          <option value="">Select</option>
-          <option>AL</option>
-          <option>AK</option>
-          <option>AZ</option>
-          <option>AR</option>
-          <option>CA</option>
-          <option>CO</option>
-          <option>CT</option>
-          <option>DE</option>
-          <option>FL</option>
-          <option>GA</option>
-          <option>HI</option>
-          <option>ID</option>
-          <option>IL</option>
-          <option>IN</option>
-          <option>IA</option>
-          <option>KS</option>
-          <option>KY</option>
-          <option>LA</option>
-          <option>ME</option>
-          <option>MD</option>
-          <option>MA</option>
-          <option>MI</option>
-          <option>MN</option>
-          <option>MS</option>
-          <option>MO</option>
-          <option>MT</option>
-          <option>NE</option>
-          <option>NV</option>
-          <option>NH</option>
-          <option>NJ</option>
-          <option>NM</option>
-          <option>NY</option>
-          <option>NC</option>
-          <option>ND</option>
-          <option>OH</option>
-          <option>OK</option>
-          <option>OR</option>
-          <option>PA</option>
-          <option>RI</option>
-          <option>SC</option>
-          <option>SD</option>
-          <option>TN</option>
-          <option>TX</option>
-          <option>UT</option>
-          <option>VT</option>
-          <option>VA</option>
-          <option>WA</option>
-          <option>WV</option>
-          <option>WI</option>
-          <option>WY</option>
-          <option>DC</option>
-        </select>
-      
-        <label for="zip">Zip Code</label>
-        <input id="zip" type="text" name="zip" required>
-      
-        <label for="day">Best Day to Call</label>
-        <select id="day" name="day" required>
-          <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
-          <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
-        </select>
-      
-        <label for="time">Time</label>
-        <input id="time" type="text" name="time" placeholder="3:00" required>
-      
-        <label for="ampm">AM / PM</label>
-        <select id="ampm" name="ampm" required>
-          <option>AM</option><option>PM</option>
-        </select>
+            <label for="email">Email</label>
+            <input id="email" type="text" name="email" required>
 
-        <label for="importance">Service Requested</label>
-        <select id="importance" name="importance" required>
-          <option value="">Select</option>
-          <option>Child Safety Kit</option><option>Last Testament Will Kit</option><option>AIL Plus Discount Card</option>
-          <option>$2000 Accidental Certificate</option><option>Whole Life Insurance</option>
-        </select>
-        <button type="submit">Send Message</button>
-      </form>
+            <label for="dob">Date of Birth</label>
+            <input id="dob" type="date" name="dob" required>
 
+            <label for="address">Address</label>
+            <input id="address" type="text" name="address" placeholder="123 Main St" required>
+
+            <label for="city">City</label>
+            <input id="city" type="text" name="city" required>
+
+            <label for="state">State</label>
+            <select id="state" name="state" required>
+              <option value="">Select</option>
+              <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option><option>CO</option><option>CT</option><option>DE</option><option>FL</option><option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option><option>DC</option>
+            </select>
+
+            <label for="zip">Zip Code</label>
+            <input id="zip" type="text" name="zip" required>
+
+            <label for="day">Best Day to Call</label>
+            <select id="day" name="day" required>
+              <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+              <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+            </select>
+
+            <label for="time">Time</label>
+            <input id="time" type="text" name="time" placeholder="3:00" required>
+
+            <label for="ampm">AM / PM</label>
+            <select id="ampm" name="ampm" required>
+              <option>AM</option><option>PM</option>
+            </select>
+
+            <label for="importance">Service Requested</label>
+            <select id="importance" name="importance" required>
+              <option value="">Select</option>
+              <option>Child Safety Kit</option>
+              <option>Last Testament Will Kit</option>
+              <option>AIL Plus Discount Card</option>
+              <option>$2000 Accidental Certificate</option>
+              <option>Whole Life Insurance</option>
+            </select>
+
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+      </div>
     </div>
   </section>
 </main>
@@ -236,12 +226,12 @@ Union members give so much to protect their communities and industries. I’m pr
 <footer>
   <div class="container">
     <div class="links">
-      <a href="https://nipr.com/licensing-center/look-up-a-national-producer-number" target="_blank">Find me on NIPR</a>
-      <a href="https://difs.state.mi.us/locators?searchtype=InsAgent" target="_blank">Michigan DOI</a>
-      <a href="https://gateway.insurance.ohio.gov/UI/ODI.Agent.Public.UI/AgentSearch.mvc/DisplaySearch" target="_blank">Ohio DOI</a>
+      <a href="https://nipr.com/licensing-center/look-up-a-national-producer-number" target="_blank" rel="noopener">Find me on NIPR</a>
+      <a href="https://difs.state.mi.us/locators?searchtype=InsAgent" target="_blank" rel="noopener">Michigan DOI</a>
+      <a href="https://gateway.insurance.ohio.gov/UI/ODI.Agent.Public.UI/AgentSearch.mvc/DisplaySearch" target="_blank" rel="noopener">Ohio DOI</a>
     </div>
     <div class="small" style="margin-top:10px">
-      © 2025 Thomas Lancheros — American Income Life  • (586) 224-6692 • thomaslancheros.ail@gmail.com
+      © 2025 Thomas Lancheros — American Income Life • (586) 224-6692 • thomaslancheros.ail@gmail.com
     </div>
   </div>
 </footer>
@@ -251,17 +241,20 @@ Union members give so much to protect their communities and industries. I’m pr
   <div class="modal-content" id="modalContent">
     <h2 id="modalTitle">Scan to Text Me</h2>
     <div id="qrCode"></div>
+
     <div id="mobileTextOption" style="display:none;margin-top:20px;">
       <a id="textMeButton"
          href="sms:+15862246692?body=Hi%20Thomas%2C%20my%20name%20is%20YOURNAME%2E%20I%20came%20across%20your%20information%20and%20want%20to%20learn%20more.%20The%20best%20time%20to%20call%20me%20is%20DAY%20at%20TIME."
          style="background:#0a2540;color:white;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;">
-         📱 Click to Text Me
+        📱 Click to Text Me
       </a>
       <p style="font-size:14px;color:#555;margin-top:8px;">(Opens your messaging app)</p>
     </div>
+
     <button onclick="closeQR()">Close</button>
   </div>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 function closeQR(){
@@ -293,7 +286,6 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
   } catch (err) {
     console.error('Submission failed:', err);
   }
-
 
   document.getElementById('formCard').innerHTML="<h3>✅ Message sent!</h3><p>Thank you — I’ll reach out soon.</p>";
 
