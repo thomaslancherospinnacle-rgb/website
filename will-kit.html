@@ -27,12 +27,27 @@ nav{
   backdrop-filter:saturate(180%) blur(10px);
   border-bottom:1px solid #e9eef5;
 }
-nav .container{display:flex;align-items:center;justify-content:space-between;gap:16px}
-.brand{display:flex;align-items:center;gap:12px;min-width:0}
-.brand img{height:50px;filter:grayscale(0%) contrast(110%);display:block}
+/* right-side icons container */
+.nav-right{
+  display:flex;
+  align-items:center;
+}
 
-/* Make CSK logo same height as AIL + square */
-.csk-logo{height:50px;width:50px;object-fit:contain;display:block}
+/* CSK logo: square */
+.csk-logo{
+  height:50px;
+  width:50px;
+  object-fit:contain;
+  display:block;
+}
+
+/* Will kit logo: 48h x 100w */
+.will-logo{
+  height:48px;
+  width:100px;
+  object-fit:contain;
+  display:block;
+}
 
 .contact-top{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;text-align:center;line-height:1.1}
 
