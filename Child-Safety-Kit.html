@@ -12,33 +12,78 @@
 :root{--brand:#0a2540;--accent:#0b5bd3;}
 *{box-sizing:border-box}
 body{margin:0;font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#111;background:#f7f9fc}
-a{color:#ffffff;text-decoration:none}
+a{text-decoration:none}
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
 
 /* NAV */
 nav{
   position:fixed;
   inset:0 0 auto 0;
-  height:68px;
-  display:flex;
-  align-items:center;
   z-index:20;
   background:rgb(0, 85, 140);
-  backdrop-filter:saturate(180%) blur(10px);
-  border-bottom:1px solid #e9eef5;
+  border-bottom:1px solid rgba(255,255,255,.15);
 }
-nav .container{display:flex;align-items:center;justify-content:space-between;gap:16px}
+nav .container{
+  min-height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding-top:10px;
+  padding-bottom:10px;
+  flex-wrap:wrap;
+}
 .brand{display:flex;align-items:center;gap:12px;min-width:0}
-.brand img{height:50px;filter:grayscale(0%) contrast(110%);display:block}
+.brand img{height:48px;display:block}
 
-/* Make CSK logo same height as AIL + square */
-.csk-logo{height:50px;width:50px;object-fit:contain;display:block}
+.contact-top{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+  text-align:center;
+  line-height:1.1;
+}
+.contact-top a{color:#fff;font-weight:600}
+.contact-top span{color:rgba(255,255,255,.75)}
 
-.contact-top{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;text-align:center;line-height:1.1}
+.nav-icons{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.csk-logo,.will-logo{
+  height:48px;
+  width:48px;
+  object-fit:contain;
+  display:block;
+  border-radius:10px;
+  background:rgba(255,255,255,.10);
+  padding:6px;
+}
+
+/* MOBILE NAV FIX */
+@media (max-width:720px){
+  nav .container{
+    justify-content:center;
+    gap:10px;
+  }
+  .brand{order:1}
+  .nav-icons{order:2}
+  .contact-top{
+    order:3;
+    width:100%;
+    justify-content:center;
+    padding-top:6px;
+    font-size:14px;
+  }
+  .brand img{height:44px}
+  .csk-logo,.will-logo{height:44px;width:44px}
+}
 
 /* HERO (full-bleed) */
 .hero{
-  margin-top:68px;
+  margin-top:88px; /* a bit more room for wrapped nav on mobile */
   height:62vh;
   min-height:420px;
   position:relative;
@@ -57,25 +102,64 @@ nav .container{display:flex;align-items:center;justify-content:space-between;gap
   background:url('hero-mountain.png') center/cover no-repeat;
   filter:grayscale(60%) contrast(105%) brightness(95%);
   transform:scale(1.02);
+  pointer-events:none; /* IMPORTANT: fixes clicks */
 }
-.hero:after{content:"";position:absolute;inset:0;}
-.hero-inner{position:relative;text-align:center;padding:0 20px;color:#fff}
-.hero-inner p{margin:8px 0;font-weight:600;text-shadow:0 6px 18px rgba(0,0,0,.35)}
+.hero:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.35));
+  pointer-events:none; /* IMPORTANT: fixes clicks */
+}
+.hero-inner{
+  position:relative;
+  text-align:center;
+  padding:0 20px;
+  color:#fff;
+}
+.hero-inner p{margin:8px 0;font-weight:700;text-shadow:0 6px 18px rgba(0,0,0,.35)}
+.hero-links{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.hero-links a{
+  color:#fff;
+  font-weight:800;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.hero-links .dot{opacity:.8}
 
 /* CARD */
 .section{padding:48px 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 @media (max-width:900px){
   .grid{grid-template-columns:1fr}
-  .contact-top{justify-content:flex-start;text-align:left}
 }
 .card{background:#fff;border:1px solid #eaeff6;border-radius:16px;padding:28px;box-shadow:0 10px 20px rgba(16,24,40,.04)}
-.profile{display:flex;gap:20px;align-items:center}
-.profile img{width:96px;height:96px;border-radius:999px;border:3px solid #fff;box-shadow:0 6px 20px rgba(0,0,0,.08);object-fit:cover}
-.badge{font-size:12px;color:#444;background:#eef3fb;border:1px solid #d9e6ff;padding:4px 10px;border-radius:999px;margin-top:6px;display:inline-block}
+
+/* VIDEO */
+.video-wrap{
+  margin:14px 0 12px 0;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid #eaeff6;
+  background:#000;
+}
+.video-wrap video{
+  width:100%;
+  height:auto;
+  display:block;
+}
 
 /* FORM */
 form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media (max-width:520px){
+  form{grid-template-columns:1fr}
+}
 form label{font-size:12px;color:#444}
 input,select{width:100%;padding:10px;border:1px solid #d7dfeb;border-radius:10px;background:#fff;font-size:14px}
 button{
@@ -85,13 +169,13 @@ button{
   border:none;
   padding:14px 18px;
   border-radius:12px;
-  font-weight:700;
+  font-weight:800;
   letter-spacing:.02em;
   cursor:pointer;
   transition:.2s box-shadow,.2s transform
 }
 button:hover{box-shadow:0 10px 22px rgba(10,37,64,.15);transform:translateY(-1px)}
-.helper{font-size:12px;color:#666;margin-top:6px}
+.small{font-size:12px;color:#667}
 
 /* MODAL */
 #qrModal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:1000;opacity:0;transition:opacity .5s ease;}
@@ -103,15 +187,15 @@ button:hover{box-shadow:0 10px 22px rgba(10,37,64,.15);transform:translateY(-1px
 /* FOOTER */
 footer{padding:28px 0;color:#445;font-size:14px}
 .links{display:flex;gap:16px;flex-wrap:wrap}
-.small{font-size:12px;color:#667}
 </style>
 </head>
 <body>
 
 <nav>
   <div class="container">
+    <!-- Logo links to https://thomaslife.space -->
     <div class="brand">
-      <a href="https://thomaslife.space">
+      <a href="https://thomaslife.space" aria-label="Home">
         <img src="assets/American_Income_Life_logo.png" alt="American Income Life logo" />
       </a>
     </div>
@@ -122,25 +206,27 @@ footer{padding:28px 0;color:#445;font-size:14px}
       <a href="mailto:thomaslancheros.ail@gmail.com">thomaslancheros.ail@gmail.com</a>
     </div>
 
-    <div class="nav-right">
-      <a href="https://thomaslife.space/Child-Safety-Kit.html">
+    <div class="nav-icons">
+      <a href="https://thomaslife.space/child-safety-kit.html" aria-label="Child Safety Kit page">
         <img class="csk-logo" src="assets/childsafekitlogo.png" alt="Child Safe Kit" />
       </a>
-    </div>
 
-    <div class="nav-right">
-      <a href="https://thomaslife.space/will-kit.html">
-        <img class="Will-logo" src="assets/willkit.png" alt="Last Testement Kit" />
+      <a href="https://thomaslife.space/will-kit.html" aria-label="Will Kit page">
+        <img class="will-logo" src="assets/willkit.png" alt="Last Testament Kit" />
       </a>
     </div>
-    
   </div>
 </nav>
 
 <main>
   <section class="hero">
     <div class="hero-inner">
-      <p>Child Safety Kits &nbsp;•&nbsp; Last Testament Kits</p>
+      <!-- FIXED LINKS (this now works) -->
+      <p class="hero-links">
+        <a href="child-safety-kit.html">Child Safety Kits</a>
+        <span class="dot" aria-hidden="true">•</span>
+        <a href="will-kit.html">Last Testament Kits</a>
+      </p>
       <p>Licensed in multiple states — simple guidance, clear options.</p>
     </div>
   </section>
@@ -148,47 +234,54 @@ footer{padding:28px 0;color:#445;font-size:14px}
   <section class="section">
     <div class="container">
       <div class="grid">
-        <div class="card">
 
+        <div class="card">
           <h3 style="margin-top:0">Why a Child Safety Kit Matters</h3>
 
-            <p style="margin-top:12px">
-              Most “accidents” with kids aren’t random — they’re predictable home hazards. A simple child safety kit helps you
-              block the most common risks (falls, poisonings, burns, choking, access to chemicals/meds) before they happen.
-            </p>
-            
-            <ul style="margin:14px 0 0 18px; line-height:1.55">
-              <li><strong>Preventable injuries are the #1 killer of kids in the U.S.</strong> (Safe Kids Worldwide, 2022)
-                <a href="https://www.safekids.org/why-it-matters" target="_blank" rel="noopener">Source</a>
-              </li>
-            
-              <li><strong>In 2019, 7,444 children and youth (0–19) died from unintentional injuries</strong> — about
-                <strong>20 preventable deaths per day.</strong> (CDC)
-                <a href="https://stacks.cdc.gov/view/cdc/164032/cdc_164032_DS1.pdf" target="_blank" rel="noopener">Source</a>
-              </li>
-            
-              <li><strong>Falls are a leading cause of non-fatal childhood injury</strong> — with
-                <strong>~2.58 million ER-treated injuries from falls</strong> in a single year (2013). (Safe Kids)
-                <a href="https://www.safekids.org/falls" target="_blank" rel="noopener">Source</a>
-              </li>
-            
-              <li>
-                <strong>Childproofing devices are recommended by U.S. safety authorities</strong> — especially
-                <strong>cabinet/drawer locks</strong> to prevent access to medicines, cleaners, detergents, matches/lighters, and sharp objects. (U.S. CPSC)
-                <a href="https://www.cpsc.gov/safety-education/safety-guides/kids-and-babies/Childproofing-Your-Home" target="_blank" rel="noopener">Source</a>
-              </li>
-            
-              <li>
-                <strong>CDC-referenced guidance notes falls are the most common cause of nonfatal injuries for children 0–19.</strong> (NICHD)
-                <a href="https://www.nichd.nih.gov/health/topics/pediatric/conditioninfo/causes" target="_blank" rel="noopener">Source</a>
-              </li>
-            </ul>
-            
-            <p style="margin-top:14px">
-              <strong>Bottom line:</strong> A child safety kit is a low-cost way to reduce real risks at home — especially for
-              babies and toddlers who explore fast, climb early, and can’t judge danger yet.
-            </p>
+          <!-- ✅ VIDEO EMBED ABOVE THE PARAGRAPH -->
+          <div class="video-wrap">
+            <video controls playsinline preload="metadata">
+              <source src="assets/CSKVID.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
 
+          <p style="margin-top:12px">
+            Most “accidents” with kids aren’t random — they’re predictable home hazards. A simple child safety kit helps you
+            block the most common risks (falls, poisonings, burns, choking, access to chemicals/meds) before they happen.
+          </p>
+
+          <ul style="margin:14px 0 0 18px; line-height:1.55">
+            <li><strong>Preventable injuries are the #1 killer of kids in the U.S.</strong> (Safe Kids Worldwide, 2022)
+              <a href="https://www.safekids.org/why-it-matters" target="_blank" rel="noopener">Source</a>
+            </li>
+
+            <li><strong>In 2019, 7,444 children and youth (0–19) died from unintentional injuries</strong> — about
+              <strong>20 preventable deaths per day.</strong> (CDC)
+              <a href="https://stacks.cdc.gov/view/cdc/164032/cdc_164032_DS1.pdf" target="_blank" rel="noopener">Source</a>
+            </li>
+
+            <li><strong>Falls are a leading cause of non-fatal childhood injury</strong> — with
+              <strong>~2.58 million ER-treated injuries from falls</strong> in a single year (2013). (Safe Kids)
+              <a href="https://www.safekids.org/falls" target="_blank" rel="noopener">Source</a>
+            </li>
+
+            <li>
+              <strong>Childproofing devices are recommended by U.S. safety authorities</strong> — especially
+              <strong>cabinet/drawer locks</strong> to prevent access to medicines, cleaners, detergents, matches/lighters, and sharp objects. (U.S. CPSC)
+              <a href="https://www.cpsc.gov/safety-education/safety-guides/kids-and-babies/Childproofing-Your-Home" target="_blank" rel="noopener">Source</a>
+            </li>
+
+            <li>
+              <strong>CDC-referenced guidance notes falls are the most common cause of nonfatal injuries for children 0–19.</strong> (NICHD)
+              <a href="https://www.nichd.nih.gov/health/topics/pediatric/conditioninfo/causes" target="_blank" rel="noopener">Source</a>
+            </li>
+          </ul>
+
+          <p style="margin-top:14px">
+            <strong>Bottom line:</strong> A child safety kit is a low-cost way to reduce real risks at home — especially for
+            babies and toddlers who explore fast, climb early, and can’t judge danger yet.
+          </p>
         </div>
 
         <div class="card" id="formCard">
@@ -207,7 +300,6 @@ footer{padding:28px 0;color:#445;font-size:14px}
 
             <label for="email">Email</label>
             <input id="email" type="text" name="email" required>
-
 
             <label for="address">Address</label>
             <input id="address" type="text" name="address" placeholder="123 Main St" required>
@@ -241,6 +333,7 @@ footer{padding:28px 0;color:#445;font-size:14px}
             <button type="submit">Send Message</button>
           </form>
         </div>
+
       </div>
     </div>
   </section>
