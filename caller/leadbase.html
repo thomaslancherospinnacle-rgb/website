@@ -220,12 +220,13 @@
   <div class="topbar">
     <div class="title" id="agentNameDisplay">AGENT</div>
     <div class="right">
-      <!--<div class="pill">
+      <div class="pill">
         <span>Code:</span><code id="codePill">—</code>
-      </div>-->
+      </div>
       <div class="pill">
         <span>Today dials:</span><strong id="todayDials">0</strong>
       </div>
+      <button class="btn" id="exportBtn" title="Download updated CSV">Export CSV</button>
       <button class="btn" id="resetBtn" title="Change code / reload">Change Code</button>
     </div>
   </div>
@@ -236,13 +237,13 @@
     <section id="loginView" class="panel" style="padding:20px;">
       <div class="grid" style="gap:12px">
         <div class="h1">Step 1: Enter Code</div>
-        <div class="muted small">Enter the lead code provided to you</div>
-        <input id="codeInput" class="input" placeholder="Lead Code" autocomplete="off" />
+        <div class="muted small">Loads <span style="font-family:var(--mono)">./CODE.csv</span> from this folder. Example: enter <b>agent1</b> to load <span style="font-family:var(--mono)">agent1.csv</span>.</div>
+        <input id="codeInput" class="input" placeholder="code (filename without .csv)" autocomplete="off" />
         <div class="row" style="justify-content:space-between">
           <button id="loadBtn" class="primary">Load sheet</button>
           <label class="ghost" style="display:inline-flex; gap:8px; align-items:center; cursor:pointer;">
-          <input id="fileInput" type="file" accept=".csv,text/csv" style="display:none">
-            upload instead
+            <input id="fileInput" type="file" accept=".csv,text/csv" style="display:none">
+            Upload CSV instead
           </label>
         </div>
         <div class="muted small" id="loginHint"></div>
