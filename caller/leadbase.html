@@ -7,201 +7,208 @@
   <title>Lead Dialer</title>
   <style>
     :root{
-      --bg:#e9eef3;
+      --bg:#f5f5f5;
       --card:#ffffff;
-      --ink:#0b1220;
-      --muted:#64748b;
-      --line:#d6dde6;
-      --brand:#4d72ff;
-      --brand2:#2f5fe8;
-      --good:#0e7a2b;
-      --shadow:0 10px 25px rgba(15,23,42,.08);
-      --radius:10px;
+      --ink:#333333;
+      --muted:#666666;
+      --line:#d0d0d0;
+      --brand:#007bff;
+      --brand2:#0056b3;
+      --good:#28a745;
+      --topbar:#2c3e50;
+      --shadow:0 2px 4px rgba(0,0,0,.1);
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg)}
+    body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);font-size:14px}
     a{color:inherit}
     .app{min-height:100vh;display:flex;flex-direction:column}
     .topbar{
-      height:52px; 
-      background: linear-gradient(180deg, #5f72db, #5f72db);
+      height:50px; 
+      background:var(--topbar);
       color:#fff; display:flex; align-items:center; justify-content:space-between;
-      padding:0 14px; box-shadow:var(--shadow);
+      padding:0 20px; box-shadow:var(--shadow);
     }
-    .topbar .title{font-weight:700; letter-spacing:.3px; text-transform:uppercase;}
-    .topbar .right{display:flex; gap:10px; align-items:center}
+    .topbar .title{font-weight:600; font-size:16px;}
+    .topbar .right{display:flex; gap:12px; align-items:center}
     .pill{
-      background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.22);
-      color:#fff; padding:6px 10px; border-radius:999px; font-size:12px;
+      background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.2);
+      color:#fff; padding:4px 12px; font-size:13px;
       display:flex; align-items:center; gap:8px;
     }
     .pill code{font-family:var(--mono); color:#fff}
     .btn{
-      border:1px solid rgba(255,255,255,.25);
-      background:rgba(255,255,255,.14);
-      color:#fff; padding:8px 10px; border-radius:10px; cursor:pointer;
-      font-weight:600; font-size:12px;
+      border:1px solid rgba(255,255,255,.3);
+      background:rgba(255,255,255,.1);
+      color:#fff; padding:6px 12px; cursor:pointer;
+      font-weight:500; font-size:13px;
     }
+    .btn:hover{background:rgba(255,255,255,.2)}
     .btn:active{transform:translateY(1px)}
-    .wrap{max-width:980px; margin:16px auto; padding:0 12px; width:100%;}
-    .panel{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow)}
+    .wrap{max-width:1200px; margin:20px auto; padding:0 20px; width:100%;}
+    .panel{background:var(--card); border:1px solid var(--line); box-shadow:var(--shadow)}
     .grid{display:grid; gap:12px}
     .row{display:flex; gap:10px; align-items:center}
     .muted{color:var(--muted)}
-    .h1{font-size:18px; font-weight:800}
-    .h2{font-size:14px; font-weight:800}
+    .h1{font-size:18px; font-weight:600}
+    .h2{font-size:14px; font-weight:600}
     .small{font-size:12px}
     .input{
-      width:100%; padding:12px 12px; border-radius:12px; border:1px solid var(--line);
-      font-size:14px; outline:none;
+      width:100%; padding:8px 12px; border:1px solid var(--line);
+      font-size:14px; outline:none; font-family:var(--sans);
     }
-    .input:focus{border-color:#9db6ff; box-shadow:0 0 0 3px rgba(77,114,255,.18)}
+    .input:focus{border-color:var(--brand); box-shadow:0 0 0 2px rgba(0,123,255,.15)}
     .primary{
-      background:linear-gradient(180deg,var(--brand),var(--brand2));
-      color:#fff; border:none; padding:12px 14px; border-radius:12px; cursor:pointer;
-      font-weight:800;
+      background:var(--brand);
+      color:#fff; border:none; padding:10px 16px; cursor:pointer;
+      font-weight:600; font-size:14px;
     }
+    .primary:hover{background:var(--brand2)}
     .primary:active{transform:translateY(1px)}
     .ghost{
       background:#fff; color:var(--ink); border:1px solid var(--line);
-      padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:700;
+      padding:8px 12px; cursor:pointer; font-weight:500; font-size:14px;
     }
+    .ghost:hover{background:#f8f9fa}
     .ghost:active{transform:translateY(1px)}
     .hidden{display:none !important}
 
     .list-header{
-      padding:10px 12px; border-bottom:1px solid var(--line);
-      display:grid; grid-template-columns: 2.2fr 1.2fr 1.2fr .8fr .8fr;
-      gap:10px; background:#f3f6fb; font-weight:800; font-size:12px;
+      padding:12px 16px; border-bottom:2px solid var(--line);
+      display:grid;
+      gap:16px; background:#f8f9fa; font-weight:600; font-size:13px;
+      color:var(--ink);
     }
     .lead-row{
-      padding:12px; border-bottom:1px solid var(--line);
-      display:grid; grid-template-columns: 2.2fr 1.2fr 1.2fr .8fr .8fr;
-      gap:10px; align-items:center;
+      padding:12px 16px; border-bottom:1px solid var(--line);
+      display:grid;
+      gap:16px; align-items:center;
     }
+    .lead-row:hover{background:#f8f9fa}
     .lead-row:last-child{border-bottom:none}
     .name-link{
-      color:##337ab7; font-weight:800; text-decoration:underline; cursor:pointer;
-      display:inline-block;
+      color:var(--brand); font-weight:600; text-decoration:none; cursor:pointer;
     }
-    .type-pill{
-      font-size:12px; padding:5px 10px; border-radius:999px; display:inline-block;
-      border:1px solid var(--line); background:#f8fafc; font-weight:700; color:#0f172a;
-      justify-self:start;
-    }
-    .icons{display:flex; gap:10px; justify-content:flex-end}
+    .name-link:hover{text-decoration:underline}
+    .icons{display:flex; gap:8px; justify-content:flex-end}
     .icon-btn{
-      width:34px; height:34px; border-radius:10px; border:1px solid var(--line);
+      width:32px; height:32px; border:1px solid var(--line);
       background:#fff; cursor:pointer; display:grid; place-items:center; font-size:16px;
     }
+    .icon-btn:hover{background:#f8f9fa}
     .icon-btn:active{transform:translateY(1px)}
     .status-line{
       grid-column:1 / -1;
-      color:#0f172a; font-size:12px; margin-top:6px;
-      padding:8px 10px; border-radius:10px; background:#f8fafc; border:1px dashed var(--line);
+      color:var(--muted); font-size:12px; margin-top:6px;
+      padding:8px 12px; background:#f8f9fa; border:1px solid var(--line);
     }
 
     .detail-head{
-      padding:12px; border-bottom:1px solid var(--line);
+      padding:16px; border-bottom:1px solid var(--line);
       display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background:#f8f9fa;
     }
     .nav-arrows{display:flex; gap:8px; align-items:center}
     .arrow{
-      width:38px; height:38px; border-radius:10px; border:1px solid var(--line);
+      width:36px; height:36px; border:1px solid var(--line);
       background:#fff; cursor:pointer; display:grid; place-items:center; font-size:18px;
     }
+    .arrow:hover{background:#f8f9fa}
     .arrow:active{transform:translateY(1px)}
-    .detail-body{padding:12px}
-    .kv{display:grid; grid-template-columns: 120px 1fr; gap:8px; align-items:center; font-size:13px}
-    .kv .k{color:var(--muted); font-weight:800}
-    .kv .v{font-weight:650}
+    .detail-body{padding:16px}
+    .kv{display:grid; grid-template-columns: 140px 1fr; gap:8px; align-items:center; font-size:14px; margin-bottom:8px}
+    .kv .k{color:var(--muted); font-weight:600}
+    .kv .v{font-weight:500}
     .addr{
-      margin-top:10px; padding:10px; border:1px solid var(--line); border-radius:12px; background:#f8fafc;
+      margin-top:12px; padding:12px; border:1px solid var(--line); background:#f8f9fa;
     }
     .actions{
-      margin-top:12px;
+      margin-top:16px;
       display:grid; grid-template-columns: repeat(4, 1fr);
-      gap:10px;
+      gap:12px;
     }
     .action{
       border:1px solid var(--line);
-      background:#fff; border-radius:12px; padding:10px;
+      background:#fff; padding:12px;
       display:flex; flex-direction:column; gap:6px; align-items:center; justify-content:center;
       cursor:pointer; text-decoration:none;
     }
-    .action strong{font-size:12px}
+    .action:hover{background:#f8f9fa}
+    .action strong{font-size:12px; font-weight:600}
     .action span{font-size:18px}
     .action:active{transform:translateY(1px)}
-    .action.disabled{opacity:.45; cursor:not-allowed; pointer-events:none}
+    .action.disabled{opacity:.4; cursor:not-allowed; pointer-events:none}
 
     .tabs{
-      margin-top:12px;
+      margin-top:16px;
       border:1px solid var(--line);
-      border-radius:12px; overflow:hidden;
+      overflow:hidden;
       background:#fff;
     }
     .tabbar{
       display:grid; grid-template-columns: 1fr 1fr;
-      background:#f3f6fb; border-bottom:1px solid var(--line);
+      background:#f8f9fa; border-bottom:1px solid var(--line);
     }
     .tabbtn{
-      padding:12px; border:none; cursor:pointer; font-weight:900;
-      background:transparent;
+      padding:12px; border:none; cursor:pointer; font-weight:600;
+      background:transparent; font-size:14px;
     }
+    .tabbtn:hover{background:#e9ecef}
     .tabbtn.active{
-      background:#0b5bd3;
+      background:var(--brand);
       color:#fff;
     }
-    .tabcontent{padding:12px}
+    .tabcontent{padding:16px}
     .dispo-item{
-      padding:12px; border:1px solid var(--line); border-radius:12px;
+      padding:12px; border:1px solid var(--line);
       background:#fff; cursor:pointer;
       display:flex; flex-direction:column; gap:4px;
       margin-bottom:10px;
     }
-    .dispo-item strong{font-size:13px}
+    .dispo-item:hover{background:#f8f9fa}
+    .dispo-item strong{font-size:13px; font-weight:600}
     .dispo-item span{font-size:12px; color:var(--muted)}
     .dispo-item:active{transform:translateY(1px)}
-    .resolve{margin-top:6px; width:100%; padding:12px; border-radius:12px; border:1px solid var(--line); background:#fff; font-weight:900; cursor:pointer}
+    .resolve{margin-top:8px; width:100%; padding:10px; border:1px solid var(--line); background:#fff; font-weight:600; cursor:pointer; font-size:14px}
+    .resolve:hover{background:#f8f9fa}
     .resolve:active{transform:translateY(1px)}
 
     .overlay{
-      position:fixed; inset:0; background:rgba(2,6,23,.55); display:none;
-      align-items:flex-end; justify-content:center; padding:14px; z-index:1000;
+      position:fixed; inset:0; background:rgba(0,0,0,.5); display:none;
+      align-items:flex-end; justify-content:center; padding:20px; z-index:1000;
     }
     .overlay.show{display:flex}
     .sheet{
-      width:min(560px, 100%);
-      background:#fff; border-radius:16px; border:1px solid var(--line);
-      box-shadow:0 30px 60px rgba(0,0,0,.25);
+      width:min(600px, 100%);
+      background:#fff; border:1px solid var(--line);
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
       overflow:hidden;
     }
     .sheethead{
-      padding:12px; display:flex; justify-content:space-between; align-items:center;
-      border-bottom:1px solid var(--line); background:#f8fafc;
-      font-weight:900;
+      padding:16px; display:flex; justify-content:space-between; align-items:center;
+      border-bottom:1px solid var(--line); background:#f8f9fa;
+      font-weight:600; font-size:15px;
     }
-    .xbtn{border:1px solid var(--line); background:#fff; width:34px; height:34px; border-radius:10px; cursor:pointer}
+    .xbtn{border:1px solid var(--line); background:#fff; width:32px; height:32px; cursor:pointer; font-size:18px}
+    .xbtn:hover{background:#f8f9fa}
     .xbtn:active{transform:translateY(1px)}
-    .sheetbody{padding:12px; max-height:70vh; overflow:auto}
+    .sheetbody{padding:16px; max-height:70vh; overflow:auto}
     .toast{
       position:fixed; left:50%; transform:translateX(-50%);
-      bottom:16px; background:#0f172a; color:#fff; padding:10px 12px;
-      border-radius:999px; font-size:12px; display:none; box-shadow:var(--shadow); z-index:2000;
+      bottom:20px; background:#333; color:#fff; padding:12px 20px;
+      font-size:14px; display:none; box-shadow:0 2px 8px rgba(0,0,0,.2); z-index:2000;
     }
     .toast.show{display:block}
-    .divider{height:1px;background:var(--line);margin:10px 0}
+    .divider{height:1px;background:var(--line);margin:16px 0}
     .footerbar{
-      padding:10px 12px; border-top:1px solid var(--line);
-      display:flex; gap:10px; justify-content:flex-end; background:#f8fafc;
+      padding:12px 16px; border-top:1px solid var(--line);
+      display:flex; gap:10px; justify-content:flex-end; background:#f8f9fa;
     }
     .name-grid{
-      display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:12px;
+      display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;
     }
     @media (max-width: 720px){
-      .list-header, .lead-row{grid-template-columns: 2.2fr 1.1fr 1.1fr .9fr .9fr}
       .actions{grid-template-columns: repeat(2,1fr)}
       .name-grid{grid-template-columns:1fr;}
     }
@@ -227,8 +234,8 @@
   <div class="wrap">
 
     <!-- Step 1: Enter Code -->
-    <section id="loginView" class="panel" style="padding:14px;">
-      <div class="grid" style="gap:10px">
+    <section id="loginView" class="panel" style="padding:20px;">
+      <div class="grid" style="gap:12px">
         <div class="h1">Step 1: Enter Code</div>
         <div class="muted small">Loads <span style="font-family:var(--mono)">./CODE.csv</span> from this folder. Example: enter <b>agent1</b> to load <span style="font-family:var(--mono)">agent1.csv</span>.</div>
         <input id="codeInput" class="input" placeholder="code (filename without .csv)" autocomplete="off" />
@@ -244,8 +251,8 @@
     </section>
 
     <!-- Step 2: Enter Name -->
-    <section id="nameView" class="panel hidden" style="padding:14px;">
-      <div class="grid" style="gap:10px">
+    <section id="nameView" class="panel hidden" style="padding:20px;">
+      <div class="grid" style="gap:12px">
         <div class="h1">Step 2: Enter Your Name</div>
         <div class="muted small">Your name will be used for tracking in Google Sheets.</div>
         <div class="name-grid">
@@ -259,12 +266,8 @@
 
     <!-- List -->
     <section id="listView" class="panel hidden">
-      <div class="list-header">
-        <div>Name</div>
-        <div>Cities</div>
-        <div>Zip/Postal Code</div>
-        <div>Type</div>
-        <div style="text-align:right"> </div>
+      <div class="list-header" id="listHeader">
+        <!-- Dynamic headers will be inserted here -->
       </div>
       <div id="leadList"></div>
     </section>
@@ -282,12 +285,7 @@
         </div>
       </div>
       <div class="detail-body">
-        <div class="kv">
-          <div class="k">Language</div><div class="v" id="dLang">English</div>
-          <div class="k">Mobile</div><div class="v" id="dMobile">—</div>
-          <div class="k">Home</div><div class="v" id="dHome">—</div>
-          <div class="k">Email</div><div class="v" id="dEmail">—</div>
-        </div>
+        <div id="detailKVs"></div>
 
         <div class="addr" id="dAddr">—</div>
 
@@ -313,9 +311,9 @@
           </div>
           <div class="tabcontent" id="tab-comments">
             <div class="muted small">Use dispositions (below) to save results. You can also add a quick note:</div>
-            <div style="height:8px"></div>
+            <div style="height:10px"></div>
             <input id="noteInput" class="input" placeholder="Optional note (saved into history)..." />
-            <div style="height:8px"></div>
+            <div style="height:10px"></div>
             <button class="ghost" id="saveNoteBtn">Save note</button>
           </div>
           <div class="tabcontent hidden" id="tab-history">
@@ -325,11 +323,11 @@
 
         <div class="divider"></div>
 
-        <div class="panel" style="border-radius:12px; box-shadow:none;">
-          <div style="padding:12px; border-bottom:1px solid var(--line); background:#f8fafc; font-weight:900;">
+        <div class="panel" style="box-shadow:none;">
+          <div style="padding:12px; border-bottom:1px solid var(--line); background:#f8f9fa; font-weight:600;">
             Call - What Happened?
           </div>
-          <div style="padding:12px;">
+          <div style="padding:16px;">
             <div id="dispoList"></div>
             <button class="resolve" id="resolveBtn">Resolve</button>
           </div>
@@ -382,17 +380,15 @@ const els = {
   nameHint: document.getElementById("nameHint"),
   agentNameDisplay: document.getElementById("agentNameDisplay"),
   codePill: document.getElementById("codePill"),
+  listHeader: document.getElementById("listHeader"),
   leadList: document.getElementById("leadList"),
   exportBtn: document.getElementById("exportBtn"),
   resetBtn: document.getElementById("resetBtn"),
   todayDials: document.getElementById("todayDials"),
   dName: document.getElementById("dName"),
   dMeta: document.getElementById("dMeta"),
-  dLang: document.getElementById("dLang"),
-  dMobile: document.getElementById("dMobile"),
-  dHome: document.getElementById("dHome"),
-  dEmail: document.getElementById("dEmail"),
   dAddr: document.getElementById("dAddr"),
+  detailKVs: document.getElementById("detailKVs"),
   callMobile: document.getElementById("callMobile"),
   callHome: document.getElementById("callHome"),
   sendText: document.getElementById("sendText"),
@@ -416,6 +412,7 @@ let state = {
   agentName: "",
   leads: [],
   headers: [],
+  extraColumns: [],
   currentIndex: -1,
   loadedFrom: "fetch",
 };
@@ -577,22 +574,33 @@ function mapLeads(rows){
 
   console.log("CSV Headers (normalized):", hmap);
 
-  const idx = {
-    name: Math.max(
-      findColumn(hmap, "name", "fullname", "leadname", "contact", "client"),
-      0
-    ),
-    city: findColumn(hmap, "city", "cities", "town", "municipality"),
-    zip: findColumn(hmap, "zip", "postal", "zipcode", "postalcode"),
-    type: findColumn(hmap, "type", "leadtype", "category"),
-    mobile: findColumn(hmap, "mobile", "cell", "phone", "phonenumber", "telephone", "tel", "number", "phone1"),
-    home: findColumn(hmap, "home", "homephone", "phone2", "secondaryphone", "alternatephone"),
-    email: findColumn(hmap, "email", "emailaddress", "mail"),
-    address: findColumn(hmap, "address", "street", "addr", "adress", "streetaddress", "address1"),
-    state: findColumn(hmap, "state", "province", "region"),
-  };
+  // REQUIRED: First 3 columns MUST BE mapped to Name, Phone, Address
+  const nameIdx = Math.max(findColumn(hmap, "name", "fullname", "leadname", "contact", "client", "first", "last"), 0);
+  const phoneIdx = findColumn(hmap, "phone", "mobile", "cell", "phonenumber", "telephone", "tel", "number");
+  const addressIdx = findColumn(hmap, "address", "street", "addr", "adress", "streetaddress");
 
-  console.log("Column mapping:", idx);
+  // Find all OTHER columns (excluding name, phone, address, and common fields we handle separately)
+  const usedIndices = new Set([nameIdx, phoneIdx, addressIdx]);
+  const skipPatterns = ["city", "cities", "zip", "postal", "state", "province", "email", "home", "type"];
+  
+  const extraColumns = [];
+  headers.forEach((header, idx) => {
+    if(usedIndices.has(idx)) return;
+    const norm = normalizeHeader(header);
+    if(skipPatterns.some(pattern => norm.includes(pattern))) return;
+    if(!header.trim()) return;
+    extraColumns.push({ index: idx, label: header.trim() });
+  });
+
+  console.log("Extra columns found:", extraColumns);
+
+  // Find optional fields
+  const cityIdx = findColumn(hmap, "city", "cities", "town", "municipality");
+  const zipIdx = findColumn(hmap, "zip", "postal", "zipcode", "postalcode");
+  const typeIdx = findColumn(hmap, "type", "leadtype", "category");
+  const homeIdx = findColumn(hmap, "home", "homephone", "phone2", "secondaryphone");
+  const emailIdx = findColumn(hmap, "email", "emailaddress", "mail");
+  const stateIdx = findColumn(hmap, "state", "province", "region");
 
   const leads = [];
   for(let r=1; r<rows.length; r++){
@@ -603,32 +611,37 @@ function mapLeads(rows){
       __id: String(leads.length),
       __rowIndex: r,
       __raw: row,
-      name: safeText(row[idx.name >= 0 ? idx.name : 0]).trim(),
-      city: idx.city >= 0 ? safeText(row[idx.city]).trim() : "",
-      zip: idx.zip >= 0 ? safeText(row[idx.zip]).trim() : "",
-      type: idx.type >= 0 ? safeText(row[idx.type]).trim() : "Vendor",
-      mobile: idx.mobile >= 0 ? safeText(row[idx.mobile]).trim() : "",
-      home: idx.home >= 0 ? safeText(row[idx.home]).trim() : "",
-      email: idx.email >= 0 ? safeText(row[idx.email]).trim() : "",
-      address: idx.address >= 0 ? safeText(row[idx.address]).trim() : "",
-      state: idx.state >= 0 ? safeText(row[idx.state]).trim() : "",
+      name: safeText(row[nameIdx >= 0 ? nameIdx : 0]).trim(),
+      phone: phoneIdx >= 0 ? safeText(row[phoneIdx]).trim() : "",
+      address: addressIdx >= 0 ? safeText(row[addressIdx]).trim() : "",
+      city: cityIdx >= 0 ? safeText(row[cityIdx]).trim() : "",
+      zip: zipIdx >= 0 ? safeText(row[zipIdx]).trim() : "",
+      type: typeIdx >= 0 ? safeText(row[typeIdx]).trim() : "Vendor",
+      home: homeIdx >= 0 ? safeText(row[homeIdx]).trim() : "",
+      email: emailIdx >= 0 ? safeText(row[emailIdx]).trim() : "",
+      state: stateIdx >= 0 ? safeText(row[stateIdx]).trim() : "",
       language: "English",
+      extraData: {}
     };
+
+    // Store extra column data
+    extraColumns.forEach(col => {
+      lead.extraData[col.label] = safeText(row[col.index]).trim();
+    });
 
     if(!lead.name) continue;
     
     console.log(`Lead ${leads.length}:`, {
       name: lead.name,
-      mobile: lead.mobile,
-      home: lead.home,
-      email: lead.email,
-      address: lead.address
+      phone: lead.phone,
+      address: lead.address,
+      extraData: lead.extraData
     });
     
     leads.push(lead);
   }
   
-  return { headers, leads };
+  return { headers, leads, extraColumns };
 }
 
 function show(view){
@@ -639,12 +652,26 @@ function show(view){
 }
 
 function renderList(){
+  // Update header with dynamic columns
+  const headerColumns = ["Name", "Phone Number", "Address"];
+  state.extraColumns.forEach(col => headerColumns.push(col.label));
+  headerColumns.push(""); // Actions column
+  
+  const columnCount = headerColumns.length;
+  const gridTemplate = `2fr 1.5fr 2fr ${"1fr ".repeat(state.extraColumns.length)}80px`;
+  
+  els.listHeader.style.gridTemplateColumns = gridTemplate;
+  els.listHeader.innerHTML = headerColumns.map(h => `<div>${h}</div>`).join("");
+  
   els.leadList.innerHTML = "";
   const frag = document.createDocumentFragment();
+  
   state.leads.forEach((lead, i)=>{
     const row = document.createElement("div");
     row.className = "lead-row";
+    row.style.gridTemplateColumns = gridTemplate;
 
+    // Column 1: Name
     const name = document.createElement("div");
     const a = document.createElement("span");
     a.className = "name-link";
@@ -652,18 +679,23 @@ function renderList(){
     a.addEventListener("click", ()=> openLead(i));
     name.appendChild(a);
 
-    const city = document.createElement("div");
-    city.textContent = lead.city || "—";
+    // Column 2: Phone Number
+    const phoneCol = document.createElement("div");
+    const phoneObj = formatPhone10(lead.phone);
+    phoneCol.textContent = phoneObj.ok ? phoneObj.pretty : (lead.phone || "—");
 
-    const zip = document.createElement("div");
-    zip.textContent = lead.zip || "—";
+    // Column 3: Address
+    const addrCol = document.createElement("div");
+    addrCol.textContent = lead.address || "—";
 
-    const type = document.createElement("div");
-    const tp = document.createElement("span");
-    tp.className = "type-pill";
-    tp.textContent = lead.type || "Vendor";
-    type.appendChild(tp);
+    // Extra columns
+    const extraCols = state.extraColumns.map(col => {
+      const div = document.createElement("div");
+      div.textContent = lead.extraData[col.label] || "—";
+      return div;
+    });
 
+    // Actions column
     const icons = document.createElement("div");
     icons.className = "icons";
 
@@ -691,9 +723,9 @@ function renderList(){
     icons.appendChild(navBtn);
 
     row.appendChild(name);
-    row.appendChild(city);
-    row.appendChild(zip);
-    row.appendChild(type);
+    row.appendChild(phoneCol);
+    row.appendChild(addrCol);
+    extraCols.forEach(col => row.appendChild(col));
     row.appendChild(icons);
 
     const hist = getLeadHistory(state.leads[i].__id);
@@ -725,22 +757,46 @@ function renderDetail(){
 
   els.dName.textContent = lead.name.toUpperCase();
   els.dMeta.textContent = `${lead.city || "—"} • ${lead.zip || "—"} • ${lead.type || "Vendor"}`;
-  els.dLang.textContent = lead.language || "English";
 
-  const mob = formatPhone10(lead.mobile);
+  const mob = formatPhone10(lead.phone);
   const hom = formatPhone10(lead.home);
 
-  els.dMobile.innerHTML = mob.ok
-    ? `<a href="${mob.tel}" data-phone="mobile" class="phoneLink" style="color:#1d4ed8;text-decoration:underline;">${mob.pretty}</a>`
-    : `<span class="muted">—</span>`;
+  // Build detail key-values
+  let kvHtml = `
+    <div class="kv"><div class="k">Language</div><div class="v">${lead.language || "English"}</div></div>
+    <div class="kv"><div class="k">Mobile</div><div class="v">`;
+  
+  if(mob.ok) {
+    kvHtml += `<a href="${mob.tel}" data-phone="mobile" class="phoneLink" style="color:#007bff;text-decoration:underline;">${mob.pretty}</a>`;
+  } else {
+    kvHtml += `<span class="muted">—</span>`;
+  }
+  
+  kvHtml += `</div></div><div class="kv"><div class="k">Home</div><div class="v">`;
+  
+  if(hom.ok) {
+    kvHtml += `<a href="${hom.tel}" data-phone="home" class="phoneLink" style="color:#007bff;text-decoration:underline;">${hom.pretty}</a>`;
+  } else {
+    kvHtml += `<span class="muted">—</span>`;
+  }
+  
+  kvHtml += `</div></div><div class="kv"><div class="k">Email</div><div class="v">`;
+  
+  if(lead.email) {
+    kvHtml += `<a href="mailto:${encodeURIComponent(lead.email)}" style="color:#007bff;text-decoration:underline;">${escapeHtml(lead.email)}</a>`;
+  } else {
+    kvHtml += `<span class="muted">—</span>`;
+  }
+  
+  kvHtml += `</div></div>`;
 
-  els.dHome.innerHTML = hom.ok
-    ? `<a href="${hom.tel}" data-phone="home" class="phoneLink" style="color:#1d4ed8;text-decoration:underline;">${hom.pretty}</a>`
-    : `<span class="muted">—</span>`;
+  // Add extra data fields
+  state.extraColumns.forEach(col => {
+    const value = lead.extraData[col.label] || "—";
+    kvHtml += `<div class="kv"><div class="k">${escapeHtml(col.label)}</div><div class="v">${escapeHtml(value)}</div></div>`;
+  });
 
-  els.dEmail.innerHTML = lead.email
-    ? `<a href="mailto:${encodeURIComponent(lead.email)}" style="color:#1d4ed8;text-decoration:underline;">${escapeHtml(lead.email)}</a>`
-    : `<span class="muted">—</span>`;
+  els.detailKVs.innerHTML = kvHtml;
 
   const addrBits = [];
   if(lead.address) addrBits.push(lead.address);
@@ -831,8 +887,8 @@ function renderHistoryTab(){
   const lines = hist.slice().reverse().map(h=>{
     const phone = h.phoneUsed ? ` • ${h.phoneUsed}` : "";
     const note = h.note ? ` • Note: ${h.note}` : "";
-    return `<div style="padding:10px;border:1px solid var(--line);border-radius:12px;background:#fff;margin-bottom:8px;">
-      <div style="font-weight:900">${escapeHtml(h.outcome || "Update")}</div>
+    return `<div style="padding:10px;border:1px solid var(--line);background:#fff;margin-bottom:8px;">
+      <div style="font-weight:600">${escapeHtml(h.outcome || "Update")}</div>
       <div class="muted small">${escapeHtml(h.ts)}${escapeHtml(phone)}${escapeHtml(note)}</div>
     </div>`;
   }).join("");
@@ -886,7 +942,7 @@ function saveDisposition(outcome, {phoneUsed=""} = {}){
     const calendlyBase = "https://calendly.com/thomaslancheros-ail/30min";
     const params = new URLSearchParams();
     params.set("name", lead.name || "");
-    const chosen = formatPhone10(lead.mobile).ok ? formatPhone10(lead.mobile) : formatPhone10(lead.home);
+    const chosen = formatPhone10(lead.phone).ok ? formatPhone10(lead.phone) : formatPhone10(lead.home);
     const num = chosen.ok ? chosen.digits : "";
     params.set("number", num);
     params.set("email", lead.email || "");
@@ -987,7 +1043,7 @@ els.exportBtn.addEventListener("click", ()=>{
 });
 
 els.resetBtn.addEventListener("click", ()=>{
-  state = { code:"", agentName:"", leads:[], headers:[], currentIndex:-1, loadedFrom:"fetch" };
+  state = { code:"", agentName:"", leads:[], headers:[], extraColumns:[], currentIndex:-1, loadedFrom:"fetch" };
   els.codePill.textContent = "—";
   els.agentNameDisplay.textContent = "AGENT";
   show("login");
@@ -1080,11 +1136,12 @@ async function startWithCode(code){
 
 function bootSheet(code, csvText, from){
   const rows = parseCSV(csvText);
-  const { headers, leads } = mapLeads(rows);
+  const { headers, leads, extraColumns } = mapLeads(rows);
 
   state.code = code;
   state.headers = headers;
   state.leads = leads;
+  state.extraColumns = extraColumns;
   state.currentIndex = -1;
   state.loadedFrom = from;
 
