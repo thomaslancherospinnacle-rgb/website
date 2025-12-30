@@ -236,9 +236,8 @@
     <!-- Step 1: Enter Code -->
     <section id="loginView" class="panel" style="padding:20px;">
       <div class="grid" style="gap:12px">
-        <div class="h1">Step 1: Enter Code</div>
-        <div class="muted small">Loads <span style="font-family:var(--mono)">./CODE.csv</span> from this folder. Example: enter <b>agent1</b> to load <span style="font-family:var(--mono)">agent1.csv</span>.</div>
-        <input id="codeInput" class="input" placeholder="code (filename without .csv)" autocomplete="off" />
+        <div class="h1">Step 1: Enter Lead Code</div?
+        <input id="codeInput" class="input" placeholder="Enter the Lead Code given to you" autocomplete="off" />
         <div class="row" style="justify-content:space-between">
           <button id="loadBtn" class="primary">Load sheet</button>
           <label class="ghost" style="display:inline-flex; gap:8px; align-items:center; cursor:pointer;">
@@ -254,7 +253,7 @@
     <section id="nameView" class="panel hidden" style="padding:20px;">
       <div class="grid" style="gap:12px">
         <div class="h1">Step 2: Enter Your Name</div>
-        <div class="muted small">Your name will be used for tracking in Google Sheets.</div>
+        <div class="muted small">Your name will be used for performance metrics.</div>
         <div class="name-grid">
           <input id="firstNameInput" class="input" placeholder="First Name" autocomplete="given-name" />
           <input id="lastNameInput" class="input" placeholder="Last Name" autocomplete="family-name" />
