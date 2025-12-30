@@ -220,6 +220,9 @@
   <div class="topbar">
     <div class="title" id="agentNameDisplay">AGENT</div>
     <div class="right">
+      <!--<div class="pill">
+        <span>Code:</span><code id="codePill">—</code>
+      </div>-->
       <div class="pill">
         <span>Today dials:</span><strong id="todayDials">0</strong>
       </div>
@@ -228,22 +231,29 @@
   </div>
 
   <div class="wrap">
+
     <!-- Step 1: Enter Code -->
     <section id="loginView" class="panel" style="padding:20px;">
       <div class="grid" style="gap:12px">
         <div class="h1">Step 1: Enter Code</div>
-        <div class="muted small">Loads <span style="font-family:var(--mono)">./CODE.csv</span> from this folder. Example: enter <b>agent1</b> to load <span style="font-family:var(--mono)">agent1.csv</span>.</div>
-        <input id="codeInput" class="input" placeholder="code (filename without .csv)" autocomplete="off" />
-        <div class="h1">Step 1: Enter Lead Code</div?
-        <input id="codeInput" class="input" placeholder="Enter the Lead Code given to you" autocomplete="off" />
+        <div class="muted small">Enter the lead code provided to you</div>
+        <input id="codeInput" class="input" placeholder="Lead Code" autocomplete="off" />
         <div class="row" style="justify-content:space-between">
           <button id="loadBtn" class="primary">Load sheet</button>
-          <label class="ghost" style="display:inline-flex; gap:8px; align-items:center; cursor:pointer;">
+          <!--<label class="ghost" style="display:inline-flex; gap:8px; align-items:center; cursor:pointer;">
+            <input id="fileInput" type="file" accept=".csv,text/csv" style="display:none">
+            Upload CSV instead
+          </label>-->
+        </div>
+        <div class="muted small" id="loginHint"></div>
+      </div>
+    </section>
+
+    <!-- Step 2: Enter Name -->
     <section id="nameView" class="panel hidden" style="padding:20px;">
       <div class="grid" style="gap:12px">
         <div class="h1">Step 2: Enter Your Name</div>
         <div class="muted small">Your name will be used for tracking in Google Sheets.</div>
-        <div class="muted small">Your name will be used for performance metrics.</div>
         <div class="name-grid">
           <input id="firstNameInput" class="input" placeholder="First Name" autocomplete="given-name" />
           <input id="lastNameInput" class="input" placeholder="Last Name" autocomplete="family-name" />
@@ -252,6 +262,7 @@
         <div class="muted small" id="nameHint"></div>
       </div>
     </section>
+
     <!-- List -->
     <section id="listView" class="panel hidden">
       <div class="list-header" id="listHeader">
