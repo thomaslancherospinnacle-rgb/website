@@ -954,22 +954,32 @@ els.closeOverlay.addEventListener("click", closeOverlay);
 els.cancelOverlay.addEventListener("click", closeOverlay);
 els.overlay.addEventListener("click", (e)=>{ if(e.target === els.overlay) closeOverlay(); });
 
-function saveDisposition(outcome, {phoneUsed=""} = {}){
+function saveDisposition(outcome, { phoneUsed = "" } = {}) {
   const lead = state.leads[state.currentIndex];
-  if(!lead) return;
+  if (!lead) return;
 
-  if(outcome === "Pick Up"){
+  // figure out actual phone number used
+  let dialedNumber = "";
+  if (phoneUsed === "mobile") {
+    const mob = formatPhone10(lead.phone);
+    if (mob.ok) dialedNumber = mob.digits;
+  } else if (phoneUsed === "home") {
+    const hom = formatPhone10(lead.home);
+    if (hom.ok) dialedNumber = hom.digits;
+  }
+
+  // tracking (unchanged)
+  if (outcome === "Pick Up") {
     trackToSheets("Pickups");
-  } else if(outcome === "No Answer"){
+  } else if (outcome === "No Answer") {
     trackToSheets("Disconnected");
-  } else if(outcome === "Set Virtual Appointment"){
+  } else if (outcome === "Set Virtual Appointment") {
     trackToSheets("Appointments");
+
     const calendlyBase = "https://calendly.com/thomaslancheros-ail/30min";
     const params = new URLSearchParams();
     params.set("name", lead.name || "");
-    const chosen = formatPhone10(lead.phone).ok ? formatPhone10(lead.phone) : formatPhone10(lead.home);
-    const num = chosen.ok ? chosen.digits : "";
-    params.set("number", num);
+    params.set("number", dialedNumber);
     params.set("email", lead.email || "");
     params.set("address", lead.address || "");
     params.set("state", lead.state || "");
@@ -977,27 +987,23 @@ function saveDisposition(outcome, {phoneUsed=""} = {}){
     window.open(`${calendlyBase}?${params.toString()}`, "_blank");
   }
 
+  // 👇 build a readable note with the number
+  const phoneLabel = dialedNumber
+    ? ` (${phoneUsed === "mobile" ? "Mobile" : "Home"}: ${dialedNumber})`
+    : "";
+
   const entry = {
     ts: nowLocalTimestamp(),
-    outcome,
-    note: "",
-    phoneUsed,
+    outcome: outcome,
+    note: phoneLabel,
+    phoneUsed: dialedNumber
   };
+
   addHistory(lead.__id, entry);
   toast("Outcome saved");
   renderHistoryTab();
 }
 
-els.saveNoteBtn.addEventListener("click", ()=>{
-  const lead = state.leads[state.currentIndex];
-  if(!lead) return;
-  const note = els.noteInput.value.trim();
-  if(!note){ toast("No note"); return; }
-  addHistory(lead.__id, { ts: nowLocalTimestamp(), outcome:"Note", note, phoneUsed:"" });
-  els.noteInput.value = "";
-  toast("Note saved");
-  renderHistoryTab();
-});
 
 function dialCountKey(){
   return `dialer:${state.code}:dialcounts`;
