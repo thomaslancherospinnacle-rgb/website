@@ -263,7 +263,7 @@
 
           <label class="ghost" style="display:inline-flex; gap:8px; align-items:center; cursor:pointer;">
             <input id="fileInput" type="file" accept=".csv,text/csv" style="display:none">
-            Upload CSV instead
+            Upload CS1V instead
           </label>
         </div>
 
@@ -603,6 +603,9 @@ function mapLeads(rows){
 
   const headers = rows[0];
   const hmap = headers.map(normalizeHeader);
+  
+  console.log("Headers:", headers);
+  console.log("Normalized headers:", hmap);
 
   // IMPROVED: Better column detection with fallbacks
   let nameIdx = findColumn(hmap, "name", "fullname", "leadname", "contact", "client");
@@ -614,6 +617,8 @@ function mapLeads(rows){
   
   let addressIdx = findColumn(hmap, "address", "street", "addr", "adress", "streetaddress");
   if(addressIdx === -1) addressIdx = 2; // Fallback to third column
+  
+  console.log("Column indices - Name:", nameIdx, "Phone:", phoneIdx, "Address:", addressIdx);
 
   const usedIndices = new Set([nameIdx, phoneIdx, addressIdx]);
   const skipPatterns = ["city", "cities", "zip", "postal", "state", "province", "email", "home", "type"];
@@ -640,7 +645,10 @@ function mapLeads(rows){
     
     // IMPROVED: Better empty row detection
     const hasContent = row.some(v => String(v||"").trim() !== "");
-    if(!hasContent) continue;
+    if(!hasContent) {
+      console.log(`Row ${r}: Empty, skipping`);
+      continue;
+    }
 
     const lead = {
       __id: String(leads.length),
@@ -648,30 +656,40 @@ function mapLeads(rows){
       __raw: row,
       name: safeText(row[nameIdx]).trim(),
       phone: safeText(row[phoneIdx]).trim(),
-      address: safeText(row[addressIdx]).trim(),
-      city: cityIdx >= 0 ? safeText(row[cityIdx]).trim() : "",
-      zip: zipIdx >= 0 ? safeText(row[zipIdx]).trim() : "",
-      type: typeIdx >= 0 ? safeText(row[typeIdx]).trim() : "Vendor",
-      home: homeIdx >= 0 ? safeText(row[homeIdx]).trim() : "",
-      email: emailIdx >= 0 ? safeText(row[emailIdx]).trim() : "",
-      state: stateIdx >= 0 ? safeText(row[stateIdx]).trim() : "",
+      address: addressIdx < row.length ? safeText(row[addressIdx]).trim() : "",
+      city: cityIdx >= 0 && cityIdx < row.length ? safeText(row[cityIdx]).trim() : "",
+      zip: zipIdx >= 0 && zipIdx < row.length ? safeText(row[zipIdx]).trim() : "",
+      type: typeIdx >= 0 && typeIdx < row.length ? safeText(row[typeIdx]).trim() : "Vendor",
+      home: homeIdx >= 0 && homeIdx < row.length ? safeText(row[homeIdx]).trim() : "",
+      email: emailIdx >= 0 && emailIdx < row.length ? safeText(row[emailIdx]).trim() : "",
+      state: stateIdx >= 0 && stateIdx < row.length ? safeText(row[stateIdx]).trim() : "",
       language: "English",
       extraData: {}
     };
 
     extraColumns.forEach(col => {
-      lead.extraData[col.label] = safeText(row[col.index]).trim();
+      if(col.index < row.length) {
+        lead.extraData[col.label] = safeText(row[col.index]).trim();
+      }
     });
 
     // IMPROVED: Only skip if name is empty AND phone is empty
-    if(!lead.name && !lead.phone) continue;
+    if(!lead.name && !lead.phone) {
+      console.log(`Row ${r}: No name and no phone, skipping`);
+      continue;
+    }
     
     // Use phone as name if name is missing
-    if(!lead.name && lead.phone) lead.name = lead.phone;
+    if(!lead.name && lead.phone) {
+      lead.name = lead.phone;
+      console.log(`Row ${r}: Using phone as name`);
+    }
     
+    console.log(`Row ${r}: Valid lead -`, lead.name, lead.phone);
     leads.push(lead);
   }
 
+  console.log("Total valid leads:", leads.length);
   return { headers, leads, extraColumns };
 }
 
@@ -1196,8 +1214,18 @@ async function startWithCode(code){
 }
 
 function bootSheet(code, csvText, from){
+  console.log("=== CSV Debug Info ===");
+  console.log("CSV Text Length:", csvText.length);
+  console.log("First 500 chars:", csvText.substring(0, 500));
+  
   const rows = parseCSV(csvText);
+  console.log("Total rows parsed:", rows.length);
+  console.log("First row (headers):", rows[0]);
+  if(rows.length > 1) console.log("Second row (first data):", rows[1]);
+  
   const { headers, leads, extraColumns } = mapLeads(rows);
+  console.log("Leads found:", leads.length);
+  if(leads.length > 0) console.log("First lead:", leads[0]);
 
   state.code = code;
   state.headers = headers;
@@ -1210,7 +1238,7 @@ function bootSheet(code, csvText, from){
   updateTodayDials();
 
   if(!leads.length){
-    els.loginHint.textContent = "Loaded, but no leads found. Check your CSV.";
+    els.loginHint.textContent = "Loaded, but no leads found. Check your CSV. Open browser console (F12) for debug info.";
     return;
   }
 
