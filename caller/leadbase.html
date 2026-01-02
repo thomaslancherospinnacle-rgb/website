@@ -25,7 +25,7 @@
     a{color:inherit}
     .app{min-height:100vh;display:flex;flex-direction:column}
     .topbar{
-      height:50px; 
+      height:50px;
       background:var(--topbar);
       color:#fff; display:flex; align-items:center; justify-content:space-between;
       padding:0 20px; box-shadow:var(--shadow);
@@ -62,7 +62,7 @@
     .primary{
       background:var(--brand);
       color:#fff; border:none; padding:10px 16px; cursor:pointer;
-      font-weight:600; font-size:14px;
+      font-weight:600; font-size:14px; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
     }
     .primary:hover{background:var(--brand2)}
     .primary:active{transform:translateY(1px)}
@@ -235,41 +235,40 @@
 
     <!-- Step 1: Enter Code -->
     <section id="loginView" class="panel" style="padding:20px;">
-        <div class="grid" style="gap:12px">
-            <div class="h1">Step 1: Enter Code</div>
-                    
+      <div class="grid" style="gap:12px">
+        <div class="h1">Step 1: Enter Code</div>
 
-            <div class="muted small">
-            Loads <span style="font-family:var(--mono)">./CODE.csv</span>.
-            Example: <b>agent1</b> → <span style="font-family:var(--mono)">agent1.csv</span>
-            </div>
-
-            <input id="codeInput" class="input"
-                placeholder="code (filename without .csv)"
-                autocomplete="off" />
-
-            <div class="row" style="justify-content:space-between; gap:10px;">
-            <div style="display:flex; gap:10px;">
-                <button id="loadBtn" class="primary">Load sheet</button>
-
-                <!-- Hidden until CSV successfully loads -->
-                <a id="scriptBtn"
-                class="primary hidden"
-                href="https://drive.google.com/drive/folders/12tFssKLeEPW3bfvu5aKOMtCCBO73Cl0o?usp=sharing"
-                target="_blank"
-                rel="noopener">
-                Script
-                </a>
-            </div>
-
-            <label class="ghost" style="display:inline-flex; gap:8px; align-items:center; cursor:pointer;">
-                <input id="fileInput" type="file" accept=".csv,text/csv" style="display:none">
-                Upload CSV instead
-            </label>
-            </div>
-
-            <div class="muted small" id="loginHint"></div>
+        <div class="muted small">
+          Loads <span style="font-family:var(--mono)">./CODE.csv</span>.
+          Example: <b>agent1</b> → <span style="font-family:var(--mono)">agent1.csv</span>
         </div>
+
+        <input id="codeInput" class="input"
+               placeholder="code (filename without .csv)"
+               autocomplete="off" />
+
+        <div class="row" style="justify-content:space-between; gap:10px;">
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button id="loadBtn" class="primary" type="button">Load sheet</button>
+
+            <!-- Hidden until CSV successfully loads -->
+            <a id="scriptBtn"
+               class="primary hidden"
+               href="https://drive.google.com/drive/folders/12tFssKLeEPW3bfvu5aKOMtCCBO73Cl0o?usp=sharing"
+               target="_blank"
+               rel="noopener noreferrer">
+              Access Docs
+            </a>
+          </div>
+
+          <label class="ghost" style="display:inline-flex; gap:8px; align-items:center; cursor:pointer;">
+            <input id="fileInput" type="file" accept=".csv,text/csv" style="display:none">
+            Upload CSV instead
+          </label>
+        </div>
+
+        <div class="muted small" id="loginHint"></div>
+      </div>
     </section>
 
 
@@ -278,21 +277,35 @@
       <div class="grid" style="gap:12px">
         <div class="h1">Step 2: Enter Your Name</div>
         <div class="muted small">Your name will be used for tracking in Google Sheets.</div>
+
         <div class="name-grid">
           <input id="firstNameInput" class="input" placeholder="First Name" autocomplete="given-name" />
           <input id="lastNameInput" class="input" placeholder="Last Name" autocomplete="family-name" />
         </div>
-        <button id="continueBtn" class="primary">Continue to Leads</button>
-        <a class="primary" href="https://drive.google.com/drive/folders/12tFssKLeEPW3bfvu5aKOMtCCBO73Cl0o?usp=sharing" target="_blank">scripts</a>
+
+        <button id="continueBtn" class="primary" type="button">Continue to Leads</button>
+
+        <!-- New box under "Enter Name" (hidden until CSV loads) -->
+        <div id="nameScriptBox" class="panel hidden" style="box-shadow:none; padding:12px; background:#f8f9fa;">
+          <div class="row" style="justify-content:space-between; align-items:center;">
+            <div>
+              <div class="h2">Scripts</div>
+              <div class="muted small">Open the training + scripts folder in a new tab.</div>
+            </div>
+            <a class="primary"
+               href="https://drive.google.com/drive/folders/12tFssKLeEPW3bfvu5aKOMtCCBO73Cl0o?usp=sharing"
+               target="_blank"
+               rel="noopener noreferrer">Access Docs</a>
+          </div>
+        </div>
+
         <div class="muted small" id="nameHint"></div>
       </div>
     </section>
 
     <!-- List -->
     <section id="listView" class="panel hidden">
-      <div class="list-header" id="listHeader">
-        <!-- Dynamic headers will be inserted here -->
-      </div>
+      <div class="list-header" id="listHeader"></div>
       <div id="leadList"></div>
     </section>
 
@@ -304,8 +317,8 @@
           <div class="muted small" id="dMeta">—</div>
         </div>
         <div class="nav-arrows">
-          <button class="arrow" id="prevLead" title="Previous">▲</button>
-          <button class="arrow" id="nextLead" title="Next">▼</button>
+          <button class="arrow" id="prevLead" title="Previous" type="button">▲</button>
+          <button class="arrow" id="nextLead" title="Next" type="button">▼</button>
         </div>
       </div>
       <div class="detail-body">
@@ -314,31 +327,23 @@
         <div class="addr" id="dAddr">—</div>
 
         <div class="actions">
-          <a class="action" id="callMobile" href="#">
-            <span>📞</span><strong>Call Mobile</strong>
-          </a>
-          <a class="action" id="callHome" href="#">
-            <span>☎️</span><strong>Call Home</strong>
-          </a>
-          <a class="action" id="sendText" href="#">
-            <span>💬</span><strong>Send Text</strong>
-          </a>
-          <a class="action" id="droppedBy" href="#">
-            <span>🚶</span><strong>Dropped By</strong>
-          </a>
+          <a class="action" id="callMobile" href="#"><span>📞</span><strong>Call Mobile</strong></a>
+          <a class="action" id="callHome" href="#"><span>☎️</span><strong>Call Home</strong></a>
+          <a class="action" id="sendText" href="#"><span>💬</span><strong>Send Text</strong></a>
+          <a class="action" id="droppedBy" href="#"><span>🚶</span><strong>Dropped By</strong></a>
         </div>
 
         <div class="tabs">
           <div class="tabbar">
-            <button class="tabbtn active" data-tab="comments">Add Comments</button>
-            <button class="tabbtn" data-tab="history">History</button>
+            <button class="tabbtn active" data-tab="comments" type="button">Add Comments</button>
+            <button class="tabbtn" data-tab="history" type="button">History</button>
           </div>
           <div class="tabcontent" id="tab-comments">
             <div class="muted small">Use dispositions (below) to save results. You can also add a quick note:</div>
             <div style="height:10px"></div>
             <input id="noteInput" class="input" placeholder="Optional note (saved into history)..." />
             <div style="height:10px"></div>
-            <button class="ghost" id="saveNoteBtn">Save note</button>
+            <button class="ghost" id="saveNoteBtn" type="button">Save note</button>
           </div>
           <div class="tabcontent hidden" id="tab-history">
             <div id="historyBox" class="muted small">No comment history found</div>
@@ -353,7 +358,7 @@
           </div>
           <div style="padding:16px;">
             <div id="dispoList"></div>
-            <button class="resolve" id="resolveBtn">Resolve</button>
+            <button class="resolve" id="resolveBtn" type="button">Resolve</button>
           </div>
         </div>
 
@@ -367,13 +372,13 @@
   <div class="sheet">
     <div class="sheethead">
       <div>Call - What Happened?</div>
-      <button class="xbtn" id="closeOverlay">✕</button>
+      <button class="xbtn" id="closeOverlay" type="button">✕</button>
     </div>
     <div class="sheetbody">
       <div id="modalDispoList"></div>
     </div>
     <div class="footerbar">
-      <button class="ghost" id="cancelOverlay">Cancel</button>
+      <button class="ghost" id="cancelOverlay" type="button">Cancel</button>
     </div>
   </div>
 </div>
@@ -387,6 +392,7 @@ const DISPOSITIONS = [
   { key:"Set Virtual Appointment", desc:"Schedule a virtual appointment and send confirmation." },
 ];
 
+const DOCS_URL = "https://drive.google.com/drive/folders/12tFssKLeEPW3bfvu5aKOMtCCBO73Cl0o?usp=sharing";
 const DIAL_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0HaEd0rJqfRKD6HEwMxG1d-aGfFXGF_wfWH9YWt2qpz5MNjyLeyrW7YkCzzqBLJ2jrA/exec";
 
 const els = {
@@ -430,6 +436,7 @@ const els = {
   cancelOverlay: document.getElementById("cancelOverlay"),
   toast: document.getElementById("toast"),
   scriptBtn: document.getElementById("scriptBtn"),
+  nameScriptBox: document.getElementById("nameScriptBox"),
 };
 
 let state = {
@@ -465,7 +472,7 @@ function normalizeHeader(h){
 }
 
 function formatPhone10(raw){
-  let digits = String(raw||"").replace(/\D/g,"");
+  let digits = String(raw||"").replace(/\\D/g,"");
   if (digits.length === 11 && digits.startsWith("1")) digits = digits.slice(1);
   if (digits.length > 10) digits = digits.slice(-10);
   if (digits.length !== 10) return { ok:false, digits, pretty:"—", tel:"#"};
@@ -547,8 +554,8 @@ function parseCSV(text){
     } else {
       if(c === '"'){ inQuotes = true; i++; continue; }
       if(c === ","){ endField(); i++; continue; }
-      if(c === "\r"){ i++; continue; }
-      if(c === "\n"){ endField(); endRow(); i++; continue; }
+      if(c === "\\r"){ i++; continue; }
+      if(c === "\\n"){ endField(); endRow(); i++; continue; }
       field += c; i++; continue;
     }
   }
@@ -561,9 +568,9 @@ function parseCSV(text){
 function toCSV(rows){
   return rows.map(r => r.map(cell => {
     const s = safeText(cell);
-    if(/[",\n\r]/.test(s)) return `"${s.replace(/"/g,'""')}"`;
+    if(/[",\\n\\r]/.test(s)) return `"${s.replace(/"/g,'""')}"`;
     return s;
-  }).join(",")).join("\n");
+  }).join(",")).join("\\n");
 }
 
 async function loadFromFetch(code){
@@ -597,29 +604,23 @@ function mapLeads(rows){
   const headers = rows[0];
   const hmap = headers.map(normalizeHeader);
 
-  console.log("CSV Headers (normalized):", hmap);
-
   // REQUIRED: First 3 columns MUST BE mapped to Name, Phone, Address
   const nameIdx = Math.max(findColumn(hmap, "name", "fullname", "leadname", "contact", "client", "first", "last"), 0);
-  const phoneIdx = findColumn(hmap, "phone", "mobile", "cell", "phonenumber", "telephone", "tel", "number");
-  const addressIdx = findColumn(hmap, "address", "street", "addr", "adress", "streetaddress");
+  const phoneIdx = (headers.length > 1) ? 1 : findColumn(hmap, "phone", "mobile", "cell", "phonenumber", "telephone", "tel", "number");
+  // NOTE: Phone is forced to Column 2 (index 1) when present.const addressIdx = findColumn(hmap, "address", "street", "addr", "adress", "streetaddress");
 
-  // Find all OTHER columns (excluding name, phone, address, and common fields we handle separately)
   const usedIndices = new Set([nameIdx, phoneIdx, addressIdx]);
   const skipPatterns = ["city", "cities", "zip", "postal", "state", "province", "email", "home", "type"];
-  
+
   const extraColumns = [];
   headers.forEach((header, idx) => {
     if(usedIndices.has(idx)) return;
     const norm = normalizeHeader(header);
     if(skipPatterns.some(pattern => norm.includes(pattern))) return;
-    if(!header.trim()) return;
-    extraColumns.push({ index: idx, label: header.trim() });
+    if(!String(header||"").trim()) return;
+    extraColumns.push({ index: idx, label: String(header).trim() });
   });
 
-  console.log("Extra columns found:", extraColumns);
-
-  // Find optional fields
   const cityIdx = findColumn(hmap, "city", "cities", "town", "municipality");
   const zipIdx = findColumn(hmap, "zip", "postal", "zipcode", "postalcode");
   const typeIdx = findColumn(hmap, "type", "leadtype", "category");
@@ -649,23 +650,14 @@ function mapLeads(rows){
       extraData: {}
     };
 
-    // Store extra column data
     extraColumns.forEach(col => {
       lead.extraData[col.label] = safeText(row[col.index]).trim();
     });
 
     if(!lead.name) continue;
-    
-    console.log(`Lead ${leads.length}:`, {
-      name: lead.name,
-      phone: lead.phone,
-      address: lead.address,
-      extraData: lead.extraData
-    });
-    
     leads.push(lead);
   }
-  
+
   return { headers, leads, extraColumns };
 }
 
@@ -677,26 +669,23 @@ function show(view){
 }
 
 function renderList(){
-  // Update header with dynamic columns
   const headerColumns = ["Name", "Phone Number", "Address"];
   state.extraColumns.forEach(col => headerColumns.push(col.label));
-  headerColumns.push(""); // Actions column
-  
-  const columnCount = headerColumns.length;
+  headerColumns.push("");
+
   const gridTemplate = `2fr 1.5fr 2fr ${"1fr ".repeat(state.extraColumns.length)}80px`;
-  
+
   els.listHeader.style.gridTemplateColumns = gridTemplate;
   els.listHeader.innerHTML = headerColumns.map(h => `<div>${h}</div>`).join("");
-  
+
   els.leadList.innerHTML = "";
   const frag = document.createDocumentFragment();
-  
+
   state.leads.forEach((lead, i)=>{
     const row = document.createElement("div");
     row.className = "lead-row";
     row.style.gridTemplateColumns = gridTemplate;
 
-    // Column 1: Name
     const name = document.createElement("div");
     const a = document.createElement("span");
     a.className = "name-link";
@@ -704,29 +693,26 @@ function renderList(){
     a.addEventListener("click", ()=> openLead(i));
     name.appendChild(a);
 
-    // Column 2: Phone Number
     const phoneCol = document.createElement("div");
     const phoneObj = formatPhone10(lead.phone);
     phoneCol.textContent = phoneObj.ok ? phoneObj.pretty : (lead.phone || "—");
 
-    // Column 3: Address
     const addrCol = document.createElement("div");
     addrCol.textContent = lead.address || "—";
 
-    // Extra columns
     const extraCols = state.extraColumns.map(col => {
       const div = document.createElement("div");
       div.textContent = lead.extraData[col.label] || "—";
       return div;
     });
 
-    // Actions column
     const icons = document.createElement("div");
     icons.className = "icons";
 
     const callBtn = document.createElement("button");
     callBtn.className = "icon-btn";
     callBtn.title = "Call";
+    callBtn.type = "button";
     callBtn.textContent = "📞";
     callBtn.addEventListener("click", (e)=>{
       e.stopPropagation();
@@ -737,6 +723,7 @@ function renderList(){
     const navBtn = document.createElement("button");
     navBtn.className = "icon-btn";
     navBtn.title = "Navigate";
+    navBtn.type = "button";
     navBtn.textContent = "📍";
     navBtn.addEventListener("click",(e)=>{
       e.stopPropagation();
@@ -754,14 +741,12 @@ function renderList(){
     row.appendChild(icons);
 
     const hist = getLeadHistory(state.leads[i].__id);
-    let latest = hist.length ? hist[hist.length-1] : null;
+    const latest = hist.length ? hist[hist.length-1] : null;
     const status = document.createElement("div");
     status.className = "status-line";
-    if(latest){
-      status.innerHTML = `<span class="muted">Status</span> — <b>${escapeHtml(latest.outcome || "Update")}</b> on <b>${escapeHtml(latest.ts)}</b>`;
-    }else{
-      status.innerHTML = `<span class="muted">Status</span> — No history yet`;
-    }
+    status.innerHTML = latest
+      ? `<span class="muted">Status</span> — <b>${escapeHtml(latest.outcome || "Update")}</b> on <b>${escapeHtml(latest.ts)}</b>`
+      : `<span class="muted">Status</span> — No history yet`;
     row.appendChild(status);
 
     frag.appendChild(row);
@@ -772,7 +757,7 @@ function renderList(){
 
 function escapeHtml(s){
   return String(s||"").replace(/[&<>"']/g, (m)=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"
+    "&":"&amp;","<":"&lt;",">":"&gt;","\\\"":"&quot;","'":"&#039;"
   }[m]));
 }
 
@@ -786,36 +771,34 @@ function renderDetail(){
   const mob = formatPhone10(lead.phone);
   const hom = formatPhone10(lead.home);
 
-  // Build detail key-values
   let kvHtml = `
     <div class="kv"><div class="k">Language</div><div class="v">${lead.language || "English"}</div></div>
     <div class="kv"><div class="k">Mobile</div><div class="v">`;
-  
+
   if(mob.ok) {
     kvHtml += `<a href="${mob.tel}" data-phone="mobile" class="phoneLink" style="color:#007bff;text-decoration:underline;">${mob.pretty}</a>`;
   } else {
     kvHtml += `<span class="muted">—</span>`;
   }
-  
+
   kvHtml += `</div></div><div class="kv"><div class="k">Home</div><div class="v">`;
-  
+
   if(hom.ok) {
     kvHtml += `<a href="${hom.tel}" data-phone="home" class="phoneLink" style="color:#007bff;text-decoration:underline;">${hom.pretty}</a>`;
   } else {
     kvHtml += `<span class="muted">—</span>`;
   }
-  
+
   kvHtml += `</div></div><div class="kv"><div class="k">Email</div><div class="v">`;
-  
+
   if(lead.email) {
     kvHtml += `<a href="mailto:${encodeURIComponent(lead.email)}" style="color:#007bff;text-decoration:underline;">${escapeHtml(lead.email)}</a>`;
   } else {
     kvHtml += `<span class="muted">—</span>`;
   }
-  
+
   kvHtml += `</div></div>`;
 
-  // Add extra data fields
   state.extraColumns.forEach(col => {
     const value = lead.extraData[col.label] || "—";
     kvHtml += `<div class="kv"><div class="k">${escapeHtml(col.label)}</div><div class="v">${escapeHtml(value)}</div></div>`;
@@ -829,8 +812,8 @@ function renderDetail(){
   if(cityLine) addrBits.push(cityLine);
   els.dAddr.textContent = addrBits.length ? addrBits.join(" • ") : "—";
 
-  setupCallAction(els.callMobile, mob, "mobile");
-  setupCallAction(els.callHome, hom, "home");
+  setupCallAction(els.callMobile, mob, "mobile", lead.name);
+  setupCallAction(els.callHome, hom, "home", lead.name);
 
   if(mob.ok){
     els.sendText.classList.remove("disabled");
@@ -853,28 +836,28 @@ function renderDetail(){
   renderHistoryTab();
 
   document.querySelectorAll(".phoneLink").forEach(a=>{
-    a.addEventListener("click", (e)=>{
+    a.addEventListener("click", ()=>{
       const which = a.getAttribute("data-phone") || "mobile";
       setTimeout(()=>openDispositionModal(which), 150);
     });
   });
 }
 
-function setupCallAction(el, phoneObj, which){
+function setupCallAction(el, phoneObj, which, leadName){
   if(phoneObj.ok){
     el.classList.remove("disabled");
     el.href = phoneObj.tel;
-    el.onclick = (e)=>{
+    el.onclick = ()=>{
       setTimeout(()=>openDispositionModal(which), 150);
       incrementDialCount();
-      trackToSheets("Dials");
+      trackToSheets("Dials", { phone: phoneObj.digits || "", lead: lead.name || "" });
     };
   }else{
     el.classList.add("disabled");
     el.href = "#";
-    el.onclick = (e)=>{ 
-      e.preventDefault(); 
-      toast("No valid 10-digit phone"); 
+    el.onclick = (e)=>{
+      e.preventDefault();
+      toast("No valid 10-digit phone");
     };
   }
 }
@@ -931,10 +914,13 @@ function buildDispoButtons(container, onPick){
   });
 }
 
+// List view dispositions: no phone context
 buildDispoButtons(els.dispoList, (key)=> saveDisposition(key, { phoneUsed:"" }));
+
+// Modal dispositions: use the actual phone type ("mobile" / "home") from overlay attribute
 buildDispoButtons(els.modalDispoList, (key)=> {
   const which = els.overlay.getAttribute("data-phone") || "";
-  saveDisposition(key, { phoneUsed: which ? `Call ${which}` : "" });
+  saveDisposition(key, { phoneUsed: which }); // <-- FIXED (was "Call mobile")
   closeOverlay();
 });
 
@@ -960,21 +946,21 @@ function saveDisposition(outcome, { phoneUsed = "" } = {}) {
 
   // figure out actual phone number used
   let dialedNumber = "";
+  let dialedPretty = "";
   if (phoneUsed === "mobile") {
     const mob = formatPhone10(lead.phone);
-    if (mob.ok) dialedNumber = mob.digits;
+    if (mob.ok){ dialedNumber = mob.digits; dialedPretty = mob.pretty; }
   } else if (phoneUsed === "home") {
     const hom = formatPhone10(lead.home);
-    if (hom.ok) dialedNumber = hom.digits;
+    if (hom.ok){ dialedNumber = hom.digits; dialedPretty = hom.pretty; }
   }
 
-  // tracking (unchanged)
   if (outcome === "Pick Up") {
-    trackToSheets("Pickups");
+    trackToSheets("Pickups", { phone: dialedNumber, lead: lead.name || "" });
   } else if (outcome === "No Answer") {
-    trackToSheets("Disconnected");
+    trackToSheets("Disconnected", { phone: dialedNumber, lead: lead.name || "" });
   } else if (outcome === "Set Virtual Appointment") {
-    trackToSheets("Appointments");
+    trackToSheets("Appointments", { phone: dialedNumber, lead: lead.name || "" });
 
     const calendlyBase = "https://calendly.com/thomaslancheros-ail/30min";
     const params = new URLSearchParams();
@@ -987,16 +973,16 @@ function saveDisposition(outcome, { phoneUsed = "" } = {}) {
     window.open(`${calendlyBase}?${params.toString()}`, "_blank");
   }
 
-  // 👇 build a readable note with the number
-  const phoneLabel = dialedNumber
-    ? ` (${phoneUsed === "mobile" ? "Mobile" : "Home"}: ${dialedNumber})`
+  // readable note with the number
+  const phoneLabel = dialedPretty
+    ? `${phoneUsed === "mobile" ? "Mobile" : "Home"}: ${dialedPretty}`
     : "";
 
   const entry = {
     ts: nowLocalTimestamp(),
-    outcome: outcome,
+    outcome,
     note: phoneLabel,
-    phoneUsed: dialedNumber
+    phoneUsed: dialedNumber ? `+1${dialedNumber}` : ""
   };
 
   addHistory(lead.__id, entry);
@@ -1004,6 +990,16 @@ function saveDisposition(outcome, { phoneUsed = "" } = {}) {
   renderHistoryTab();
 }
 
+els.saveNoteBtn.addEventListener("click", ()=>{
+  const lead = state.leads[state.currentIndex];
+  if(!lead) return;
+  const note = els.noteInput.value.trim();
+  if(!note){ toast("No note"); return; }
+  addHistory(lead.__id, { ts: nowLocalTimestamp(), outcome:"Note", note, phoneUsed:"" });
+  els.noteInput.value = "";
+  toast("Note saved");
+  renderHistoryTab();
+});
 
 function dialCountKey(){
   return `dialer:${state.code}:dialcounts`;
@@ -1081,7 +1077,10 @@ els.resetBtn.addEventListener("click", ()=>{
   els.loginHint.textContent = "";
   els.codeInput.value = "";
   updateTodayDials();
+
+  // hide docs UI again
   els.scriptBtn.classList.add("hidden");
+  els.nameScriptBox.classList.add("hidden");
 });
 
 els.prevLead.addEventListener("click", ()=>{
@@ -1123,7 +1122,6 @@ els.continueBtn.addEventListener("click", ()=>{
   }
   state.agentName = `${first} ${last}`;
   els.agentNameDisplay.textContent = state.agentName.toUpperCase();
-  console.log("Agent name set:", state.agentName);
   show("list");
   renderList();
 });
@@ -1142,7 +1140,7 @@ els.fileInput.addEventListener("change", async ()=>{
 
   let code = els.codeInput.value.trim();
   if(!code){
-    code = file.name.replace(/\.csv$/i,"") || "uploaded";
+    code = file.name.replace(/\\.csv$/i,"") || "uploaded";
     els.codeInput.value = code;
   }
 
@@ -1185,18 +1183,19 @@ function bootSheet(code, csvText, from){
     return;
   }
 
+  // show docs buttons after CSV successfully loads
   els.scriptBtn.classList.remove("hidden");
+  els.nameScriptBox.classList.remove("hidden");
+
   show("name");
   els.nameHint.textContent = "";
 }
 
-function trackToSheets(action) {
+function trackToSheets(action, meta = {}) {
   if (!state.agentName) {
     console.warn("No agent name set for tracking");
     return;
   }
-
-  console.log(`Tracking to Sheets: ${state.agentName} - ${action}`);
 
   fetch(DIAL_SCRIPT_URL, {
     method: "POST",
@@ -1204,13 +1203,9 @@ function trackToSheets(action) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       name: state.agentName,
-      action: action
+      action
     })
-  }).then(() => {
-    console.log(`✓ Tracked: ${action} for ${state.agentName}`);
-  }).catch(err => {
-    console.error("Tracking error:", err);
-  });
+  }).catch(()=>{});
 }
 </script>
 </body>
