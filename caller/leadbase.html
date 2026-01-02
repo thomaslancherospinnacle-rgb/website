@@ -606,8 +606,8 @@ function mapLeads(rows){
 
   // REQUIRED: First 3 columns MUST BE mapped to Name, Phone, Address
   const nameIdx = Math.max(findColumn(hmap, "name", "fullname", "leadname", "contact", "client", "first", "last"), 0);
-  const phoneIdx = (headers.length > 1) ? 1 : findColumn(hmap, "phone", "mobile", "cell", "phonenumber", "telephone", "tel", "number");
-  // NOTE: Phone is forced to Column 2 (index 1) when present.const addressIdx = findColumn(hmap, "address", "street", "addr", "adress", "streetaddress");
+  const phoneIdx = findColumn(hmap, "phone", "mobile", "cell", "phonenumber", "telephone", "tel", "number");
+  const addressIdx = findColumn(hmap, "address", "street", "addr", "adress", "streetaddress");
 
   const usedIndices = new Set([nameIdx, phoneIdx, addressIdx]);
   const skipPatterns = ["city", "cities", "zip", "postal", "state", "province", "email", "home", "type"];
@@ -812,8 +812,8 @@ function renderDetail(){
   if(cityLine) addrBits.push(cityLine);
   els.dAddr.textContent = addrBits.length ? addrBits.join(" • ") : "—";
 
-  setupCallAction(els.callMobile, mob, "mobile", lead.name);
-  setupCallAction(els.callHome, hom, "home", lead.name);
+  setupCallAction(els.callMobile, mob, "mobile");
+  setupCallAction(els.callHome, hom, "home");
 
   if(mob.ok){
     els.sendText.classList.remove("disabled");
@@ -843,14 +843,14 @@ function renderDetail(){
   });
 }
 
-function setupCallAction(el, phoneObj, which, leadName){
+function setupCallAction(el, phoneObj, which){
   if(phoneObj.ok){
     el.classList.remove("disabled");
     el.href = phoneObj.tel;
     el.onclick = ()=>{
       setTimeout(()=>openDispositionModal(which), 150);
       incrementDialCount();
-      trackToSheets("Dials", { phone: phoneObj.digits || "", lead: lead.name || "" });
+      trackToSheets("Dials");
     };
   }else{
     el.classList.add("disabled");
@@ -956,11 +956,11 @@ function saveDisposition(outcome, { phoneUsed = "" } = {}) {
   }
 
   if (outcome === "Pick Up") {
-    trackToSheets("Pickups", { phone: dialedNumber, lead: lead.name || "" });
+    trackToSheets("Pickups");
   } else if (outcome === "No Answer") {
-    trackToSheets("Disconnected", { phone: dialedNumber, lead: lead.name || "" });
+    trackToSheets("Disconnected");
   } else if (outcome === "Set Virtual Appointment") {
-    trackToSheets("Appointments", { phone: dialedNumber, lead: lead.name || "" });
+    trackToSheets("Appointments");
 
     const calendlyBase = "https://calendly.com/thomaslancheros-ail/30min";
     const params = new URLSearchParams();
@@ -1191,7 +1191,7 @@ function bootSheet(code, csvText, from){
   els.nameHint.textContent = "";
 }
 
-function trackToSheets(action, meta = {}) {
+function trackToSheets(action) {
   if (!state.agentName) {
     console.warn("No agent name set for tracking");
     return;
