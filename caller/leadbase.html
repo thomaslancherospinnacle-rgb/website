@@ -604,10 +604,16 @@ function mapLeads(rows){
   const headers = rows[0];
   const hmap = headers.map(normalizeHeader);
 
-  // REQUIRED: First 3 columns MUST BE mapped to Name, Phone, Address
-  const nameIdx = Math.max(findColumn(hmap, "name", "fullname", "leadname", "contact", "client", "first", "last"), 0);
-  const phoneIdx = findColumn(hmap, "phone", "mobile", "cell", "phonenumber", "telephone", "tel", "number");
-  const addressIdx = findColumn(hmap, "address", "street", "addr", "adress", "streetaddress");
+  // IMPROVED: Better column detection with fallbacks
+  let nameIdx = findColumn(hmap, "name", "fullname", "leadname", "contact", "client");
+  if(nameIdx === -1) nameIdx = findColumn(hmap, "first", "last");
+  if(nameIdx === -1) nameIdx = 0; // Fallback to first column
+  
+  let phoneIdx = findColumn(hmap, "phone", "mobile", "cell", "phonenumber", "telephone", "tel", "number");
+  if(phoneIdx === -1) phoneIdx = 1; // Fallback to second column
+  
+  let addressIdx = findColumn(hmap, "address", "street", "addr", "adress", "streetaddress");
+  if(addressIdx === -1) addressIdx = 2; // Fallback to third column
 
   const usedIndices = new Set([nameIdx, phoneIdx, addressIdx]);
   const skipPatterns = ["city", "cities", "zip", "postal", "state", "province", "email", "home", "type"];
@@ -631,15 +637,18 @@ function mapLeads(rows){
   const leads = [];
   for(let r=1; r<rows.length; r++){
     const row = rows[r];
-    if(row.every(v => String(v||"").trim()==="")) continue;
+    
+    // IMPROVED: Better empty row detection
+    const hasContent = row.some(v => String(v||"").trim() !== "");
+    if(!hasContent) continue;
 
     const lead = {
       __id: String(leads.length),
       __rowIndex: r,
       __raw: row,
-      name: safeText(row[nameIdx >= 0 ? nameIdx : 0]).trim(),
-      phone: phoneIdx >= 0 ? safeText(row[phoneIdx]).trim() : "",
-      address: addressIdx >= 0 ? safeText(row[addressIdx]).trim() : "",
+      name: safeText(row[nameIdx]).trim(),
+      phone: safeText(row[phoneIdx]).trim(),
+      address: safeText(row[addressIdx]).trim(),
       city: cityIdx >= 0 ? safeText(row[cityIdx]).trim() : "",
       zip: zipIdx >= 0 ? safeText(row[zipIdx]).trim() : "",
       type: typeIdx >= 0 ? safeText(row[typeIdx]).trim() : "Vendor",
@@ -654,7 +663,12 @@ function mapLeads(rows){
       lead.extraData[col.label] = safeText(row[col.index]).trim();
     });
 
-    if(!lead.name) continue;
+    // IMPROVED: Only skip if name is empty AND phone is empty
+    if(!lead.name && !lead.phone) continue;
+    
+    // Use phone as name if name is missing
+    if(!lead.name && lead.phone) lead.name = lead.phone;
+    
     leads.push(lead);
   }
 
