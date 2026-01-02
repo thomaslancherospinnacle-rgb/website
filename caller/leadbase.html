@@ -962,16 +962,33 @@ function saveDisposition(outcome, { phoneUsed = "" } = {}) {
   } else if (outcome === "Set Virtual Appointment") {
     trackToSheets("Appointments");
 
-    const calendlyBase = "https://calendly.com/thomaslancheros-ail/30min";
-    const params = new URLSearchParams();
-    params.set("name", lead.name || "");
-    params.set("number", dialedNumber);
-    params.set("email", lead.email || "");
-    params.set("address", lead.address || "");
-    params.set("state", lead.state || "");
-    params.set("zip", lead.zip || "");
-    window.open(`${calendlyBase}?${params.toString()}`, "_blank");
-  }
+      const calendlyBase = "https://calendly.com/thomaslancheros-ail/30min";
+      const params = new URLSearchParams();
+      params.set("name", lead.name || "");
+      params.set("email", lead.email || "");
+      
+      // Build the details text with phone number from Column 2
+      const detailsParts = [];
+      if (dialedPretty) {
+        detailsParts.push(`Phone: ${dialedPretty}`);
+      }
+      if (lead.address) {
+        detailsParts.push(`Address: ${lead.address}`);
+      }
+      if (lead.state) {
+        detailsParts.push(`State: ${lead.state}`);
+      }
+      if (lead.zip) {
+        detailsParts.push(`Zip: ${lead.zip}`);
+      }
+      
+      // Use 'a1' parameter for the "Please share anything..." field
+      if (detailsParts.length > 0) {
+        params.set("a1", detailsParts.join(" | "));
+      }
+      
+      window.open(`${calendlyBase}?${params.toString()}`, "_blank");
+    }
 
   // readable note with the number
   const phoneLabel = dialedPretty
