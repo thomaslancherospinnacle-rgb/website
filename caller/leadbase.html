@@ -537,27 +537,25 @@ function parseCSV(text){
   function endField(){ row.push(field); field = ""; }
   function endRow(){ rows.push(row); row = []; }
 
-  while (i < text.length){
+  while(i < text.length){
     const c = text[i];
-
-    if (inQuotes){
-      if (c === '"'){
-        if (text[i+1] === '"'){ field += '"'; i += 2; continue; }
+    if(inQuotes){
+      if(c === '"'){
+        if(text[i+1] === '"'){ field += '"'; i += 2; continue; }
         inQuotes = false; i++; continue;
       }
       field += c; i++; continue;
     } else {
-      if (c === '"'){ inQuotes = true; i++; continue; }
-      if (c === ","){ endField(); i++; continue; }
-      if (c === "\r"){ i++; continue; }
-      if (c === "\n"){ endField(); endRow(); i++; continue; }
+      if(c === '"'){ inQuotes = true; i++; continue; }
+      if(c === ","){ endField(); i++; continue; }
+      if(c === "\r"){ i++; continue; }
+      if(c === "\n"){ endField(); endRow(); i++; continue; }
       field += c; i++; continue;
     }
   }
-
   endField();
-  const allEmpty = row.every(v => String(v||"").trim() === "");
-  if (!allEmpty) endRow();
+  const allEmpty = row.every(v => String(v||"").trim()==="");
+  if(!allEmpty) endRow();
   return rows;
 }
 
