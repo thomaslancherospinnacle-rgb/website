@@ -991,16 +991,29 @@ function saveDisposition(outcome, { phoneUsed = "" } = {}) {
 
       const calendlyBase = "https://calendly.com/thomaslancheros-ail/30min";
       const params = new URLSearchParams();
+      
+      // Set name and email
       params.set("name", lead.name || "");
       params.set("email", lead.email || "");
       
-      // Build the details text with phone number from Column 2
+      // Build the details text with ALL info including phone
       const detailsParts = [];
+      
+      // Add the phone number that was actually dialed
       if (dialedPretty) {
         detailsParts.push(`Phone: ${dialedPretty}`);
+      } else if (lead.phone) {
+        // Fallback to lead.phone if dialedPretty isn't available
+        const phoneFormatted = formatPhone10(lead.phone);
+        detailsParts.push(`Phone: ${phoneFormatted.ok ? phoneFormatted.pretty : lead.phone}`);
       }
+      
+      // Add address details
       if (lead.address) {
         detailsParts.push(`Address: ${lead.address}`);
+      }
+      if (lead.city) {
+        detailsParts.push(`City: ${lead.city}`);
       }
       if (lead.state) {
         detailsParts.push(`State: ${lead.state}`);
