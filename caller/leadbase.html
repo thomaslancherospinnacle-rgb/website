@@ -472,7 +472,7 @@ function normalizeHeader(h){
 }
 
 function formatPhone10(raw){
-  let digits = String(raw||"").replace(/\\D/g,"");
+  let digits = String(raw||"").replace(/\D/g,"");  // FIXED: was /\\D/g
   if (digits.length === 11 && digits.startsWith("1")) digits = digits.slice(1);
   if (digits.length > 10) digits = digits.slice(-10);
   if (digits.length !== 10) return { ok:false, digits, pretty:"—", tel:"#"};
@@ -554,6 +554,36 @@ function parseCSV(text){
     } else {
       if(c === '"'){ inQuotes = true; i++; continue; }
       if(c === ","){ endField(); i++; continue; }
+      if(c === "\r"){ i++; continue; }  // FIXED: was "\\r"
+      if(c === "\n"){ endField(); endRow(); i++; continue; }  // FIXED: was "\\n"
+      field += c; i++; continue;
+    }
+  }
+  endField();
+  const allEmpty = row.every(v => String(v||"").trim()==="");
+  if(!allEmpty) endRow();
+  return rows;
+}
+  function endField(){
+    row.push(field);
+    field = "";
+  }
+  function endRow(){
+    rows.push(row);
+    row = [];
+  }
+
+  while(i < text.length){
+    const c = text[i];
+    if(inQuotes){
+      if(c === '"'){
+        if(text[i+1] === '"'){ field += '"'; i += 2; continue; }
+        inQuotes = false; i++; continue;
+      }
+      field += c; i++; continue;
+    } else {
+      if(c === '"'){ inQuotes = true; i++; continue; }
+      if(c === ","){ endField(); i++; continue; }
       if(c === "\\r"){ i++; continue; }
       if(c === "\\n"){ endField(); endRow(); i++; continue; }
       field += c; i++; continue;
@@ -568,9 +598,9 @@ function parseCSV(text){
 function toCSV(rows){
   return rows.map(r => r.map(cell => {
     const s = safeText(cell);
-    if(/[",\\n\\r]/.test(s)) return `"${s.replace(/"/g,'""')}"`;
+    if(/[",\n\r]/.test(s)) return `"${s.replace(/"/g,'""')}"`;  // FIXED: was /[",\\n\\r]/
     return s;
-  }).join(",")).join("\\n");
+  }).join(",")).join("\n");  // FIXED: was "\\n"
 }
 
 async function loadFromFetch(code){
