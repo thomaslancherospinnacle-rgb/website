@@ -1274,6 +1274,84 @@ function trackToSheets(action) {
     })
   }).catch(()=>{});
 }
+
+// Search functionality
+els.searchInput.addEventListener("input", (e)=>{
+  const query = e.target.value.trim();
+  
+  // Clear results if less than 4 digits
+  if(query.length < 4){
+    els.searchResults.classList.remove("show");
+    els.searchResults.innerHTML = "";
+    return;
+  }
+  
+  // Only search numbers (remove non-digits)
+  const digits = query.replace(/\D/g, "");
+  if(digits.length !== 4){
+    els.searchResults.classList.remove("show");
+    return;
+  }
+  
+  // Find matching leads
+  const matches = state.leads.filter((lead, index) => {
+    const phoneDigits = String(lead.phone || "").replace(/\D/g, "");
+    const homeDigits = String(lead.home || "").replace(/\D/g, "");
+    
+    // Check if last 4 digits match
+    const phoneLast4 = phoneDigits.slice(-4);
+    const homeLast4 = homeDigits.slice(-4);
+    
+    return phoneLast4 === digits || homeLast4 === digits;
+  });
+  
+  // Display results
+  if(matches.length === 0){
+    els.searchResults.innerHTML = `<div style="padding:16px; text-align:center; color:var(--muted)">No matches found for "${digits}"</div>`;
+    els.searchResults.classList.add("show");
+  } else {
+    els.searchResults.innerHTML = matches.map((lead) => {
+      const phoneObj = formatPhone10(lead.phone);
+      const phoneDisplay = phoneObj.ok ? phoneObj.pretty : (lead.phone || "—");
+      
+      return `<div class="search-result-item" data-lead-id="${lead.__id}">
+        <div>
+          <div class="search-result-name">${escapeHtml(lead.name.toUpperCase())}</div>
+          <div class="search-result-phone">${escapeHtml(phoneDisplay)}</div>
+        </div>
+        <div style="color:var(--brand); font-size:12px; font-weight:600">VIEW →</div>
+      </div>`;
+    }).join("");
+    els.searchResults.classList.add("show");
+    
+    // Add click handlers
+    document.querySelectorAll(".search-result-item").forEach(item => {
+      item.addEventListener("click", ()=>{
+        const leadId = item.getAttribute("data-lead-id");
+        const leadIndex = state.leads.findIndex(l => l.__id === leadId);
+        if(leadIndex !== -1){
+          openLead(leadIndex);
+          els.searchResults.classList.remove("show");
+          els.searchInput.value = "";
+        }
+      });
+    });
+  }
+});
+
+// Close search results when clicking outside
+document.addEventListener("click", (e)=>{
+  if(!els.searchBar.contains(e.target) && !els.searchResults.contains(e.target)){
+    els.searchResults.classList.remove("show");
+  }
+});
+
+// Allow only numbers in search input
+els.searchInput.addEventListener("keypress", (e)=>{
+  if(!/[0-9]/.test(e.key) && e.key !== "Backspace" && e.key !== "Delete"){
+    e.preventDefault();
+  }
+});
 </script>
 </body>
 </html>
