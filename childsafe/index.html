@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Child Safety Kit | American Income Life</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<!-- Load shared styles from styles.css -->
+<link rel="stylesheet" href="styles.css">
+
+<!-- Page specific styles for the Child Safety Kit page -->
+<style>
+/* The video wrapper gives the embedded MP4 rounded corners and a thin
+   border so that it fits nicely within the card. Only this page uses
+   the video embed so the styles live here instead of the shared
+   stylesheet. */
+.video-wrap {
+  margin: 14px 0 12px 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #eaeff6;
+  background: #000;
+}
+.video-wrap video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <!-- Logo links to https://thomaslife.space -->
+    <div class="brand">
+      <a href="https://thomaslife.space" aria-label="Home">
+        <img src="assets/American_Income_Life_logo.png" alt="American Income Life logo" />
+      </a>
+    </div>
+
+    <div class="contact-top">
+      <a href="tel:15862246692">(586) 224-6692</a>
+      <span aria-hidden="true">|</span>
+      <a href="mailto:thomaslancheros.ail@gmail.com">thomaslancheros.ail@gmail.com</a>
+    </div>
+
+    <div class="nav-icons">
+      <a href="https://thomaslife.space/child-safety-kit.html" aria-label="Child Safety Kit page">
+        <img class="csk-logo" src="assets/childsafekitlogo.png" alt="Child Safe Kit" />
+      </a>
+
+      <a href="https://thomaslife.space/will-kit.html" aria-label="Will Kit page">
+        <img class="will-logo" src="assets/willkit.png" alt="Last Testament Kit" />
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="hero-inner">
+      <!-- FIXED LINKS (this now works) -->
+      <p class="hero-links">
+        <a href="Child-Safety-Kit.html">Child Safety Kits</a>
+        <span class="dot" aria-hidden="true">•</span>
+        <a href="will-kit.html">Last Testament Kits</a>
+      </p>
+      <p>Licensed in multiple states — simple guidance, clear options.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid">
+
+        <div class="card">
+          <h3 style="margin-top:0">Why a Child Safety Kit Matters</h3>
+
+          <!-- ✅ VIDEO EMBED ABOVE THE PARAGRAPH -->
+          <div class="video-wrap">
+            <video controls playsinline preload="metadata">
+              <source src="assets/CSKVID.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+            <p style="margin-top:12px">
+              Child safety isn’t only about accidents — it’s about preparedness when seconds matter.
+              A Child Safety Kit helps parents store up-to-date identifying information so law enforcement
+              and search teams can act immediately if a child ever goes missing.
+            </p>
+            
+            <ul style="margin:14px 0 0 18px; line-height:1.55">
+              <li>
+                <strong>In the U.S., about 460,000 children are reported missing each year.</strong>
+                (National Center for Missing &amp; Exploited Children)
+                <a href="https://www.missingkids.org/footer/media/keyfacts" target="_blank" rel="noopener">Source</a>
+              </li>
+            
+              <li>
+                <strong>The first hours after a child goes missing are critical.</strong>
+                Having photos, physical descriptions, and identifying details ready can significantly
+                speed up search and recovery efforts. (NCMEC / Law Enforcement guidance)
+                <a href="https://www.missingkids.org/theissues/abduction" target="_blank" rel="noopener">Source</a>
+              </li>
+            
+              <li>
+                <strong>Parents are often asked to provide details under extreme stress</strong>
+                — height, weight, scars, birthmarks, fingerprints, clothing, and recent photos —
+                information that is difficult to recall accurately in an emergency.
+              </li>
+            
+              <li>
+                <strong>Child ID and safety kits are recommended by child protection organizations</strong>
+                as a way to keep critical information organized and accessible for emergencies.
+                <a href="https://www.usa.gov/missing-children" target="_blank" rel="noopener">Source</a>
+              </li>
+            
+              <li>
+                <strong>Most missing children are recovered</strong>, and fast, accurate information
+                plays a key role in successful outcomes. (NCMEC)
+                <a href="https://www.missingkids.org/footer/media/keyfacts" target="_blank" rel="noopener">Source</a>
+              </li>
+            </ul>
+            
+            <p style="margin-top:14px">
+              <strong>Bottom line:</strong> A Child Safety Kit doesn’t assume the worst — it prepares for it.
+              By organizing critical identifying information ahead of time, families can respond faster,
+              stay focused, and give authorities the tools they need immediately if a child ever goes missing.
+            </p>
+
+        </div>
+
+        <div class="card" id="formCard">
+          <h3 style="margin-top:0">Request your NO COST Child Safety Kit</h3>
+          <p class="small">Answer a few basics. I’ll follow up</p>
+
+          <form id="quoteForm" action="https://script.google.com/macros/s/AKfycbzIgwWQkjal7rSrwXIKj69dxWwO67AywpgBwk80ZwtR33_9BEXUYuPgxmK7arntN76T5w/exec" method="POST">
+            <label for="first_name">First Name</label>
+            <input id="first_name" type="text" name="first_name" required>
+
+            <label for="last_name">Last Name</label>
+            <input id="last_name" type="text" name="last_name" required>
+
+            <label for="phone">Cellphone</label>
+            <input id="phone" type="text" name="phone" required>
+
+            <label for="email">Email</label>
+            <input id="email" type="text" name="email" required>
+
+            <label for="address">Address</label>
+            <input id="address" type="text" name="address" placeholder="123 Main St" required>
+
+            <label for="city">City</label>
+            <input id="city" type="text" name="city" required>
+
+            <label for="state">State</label>
+            <select id="state" name="state" required>
+              <option value="">Select</option>
+              <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option><option>CO</option><option>CT</option><option>DE</option><option>FL</option><option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option><option>DC</option>
+            </select>
+
+            <label for="zip">Zip Code</label>
+            <input id="zip" type="text" name="zip" required>
+
+            <label for="day">Best Day to Call</label>
+            <select id="day" name="day" required>
+              <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+              <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+            </select>
+
+            <label for="time">Time</label>
+            <input id="time" type="text" name="time" placeholder="3:00" required>
+
+            <label for="ampm">AM / PM</label>
+            <select id="ampm" name="ampm" required>
+              <option>AM</option><option>PM</option>
+            </select>
+
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="links">
+      <a href="https://nipr.com/licensing-center/look-up-a-national-producer-number" target="_blank" rel="noopener">Find me on NIPR</a>
+      <a href="https://difs.state.mi.us/locators?searchtype=InsAgent" target="_blank" rel="noopener">Michigan DOI</a>
+      <a href="https://gateway.insurance.ohio.gov/UI/ODI.Agent.Public.UI/AgentSearch.mvc/DisplaySearch" target="_blank" rel="noopener">Ohio DOI</a>
+    </div>
+    <div class="small" style="margin-top:10px">
+        By submitting your information, you consent to be contacted by a licensed insurance agent to schedule delivery of a
+        Child Safe Kit®  or Will Kit and to discuss additional insurance coverage options. You also agree that American Income Life may
+        contact you by phone, text message, or email — including through automated or manual technology — at the number
+        provided, including your wireless number, for insurance-related purposes. Consent is not required to make a
+        purchase.
+      <br>
+      © 2025 Thomas Lancheros — American Income Life • (586) 224-6692 • thomaslancheros.ail@gmail.com
+    </div>
+  </div>
+</footer>
+
+<!-- QR MODAL -->
+<div id="qrModal">
+  <div class="modal-content" id="modalContent">
+    <h2 id="modalTitle">Scan to Text Me</h2>
+    <div id="qrCode"></div>
+
+    <div id="mobileTextOption" style="display:none;margin-top:20px;">
+      <a id="textMeButton"
+         href="sms:+15862246692?body=Hi%20Thomas%2C%20my%20name%20is%20YOURNAME%2E%20I%20came%20across%20your%20information%20and%20want%20a%20child%20safety%20kit.%20The%20best%20time%20to%20call%20me%20is%20DAY%20at%20TIME."
+         style="background:#0a2540;color:white;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;">
+        📱 Click to Text Me
+      </a>
+      <p style="font-size:14px;color:#555;margin-top:8px;">(Opens your messaging app)</p>
+    </div>
+
+    <button onclick="closeQR()">Close</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+function closeQR(){
+  const modal=document.getElementById('qrModal');
+  modal.classList.remove('show');
+  setTimeout(()=>modal.style.display='none',500);
+}
+
+document.getElementById('quoteForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const form=this;
+  const data=new FormData(form);
+  const jsonData=Object.fromEntries(data.entries());
+
+  const first=(data.get('first_name')||'').trim();
+  const last=(data.get('last_name')||'').trim();
+  const day=data.get('day')||'';
+  const time=data.get('time')||'';
+  const ampm=data.get('ampm')||'';
+
+  const msgFull=`Hi Thomas, my name is ${first} ${last}. I came across your information and want to learn more. The best time to call me is ${day} ${time}${ampm}.`;
+
+  try {
+    await fetch(form.action, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: new URLSearchParams(jsonData)
+    });
+  } catch (err) {
+    console.error('Submission failed:', err);
+  }
+
+  document.getElementById('formCard').innerHTML="<h3>✅ Message sent!</h3><p>Thank you — I’ll reach out soon.</p>";
+
+  const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const qrContainer=document.getElementById('qrCode');
+  const modal=document.getElementById('qrModal');
+  const modalTitle=document.getElementById('modalTitle');
+  const mobileOption=document.getElementById('mobileTextOption');
+
+  qrContainer.innerHTML='';
+  mobileOption.style.display='none';
+
+  if(isMobile){
+    modalTitle.textContent='Text Me Directly!';
+    mobileOption.style.display='block';
+    document.getElementById('textMeButton').href=`sms:+15862246692?body=${encodeURIComponent(msgFull)}`;
+  }else{
+    const sms=`sms:+15862246692?body=${encodeURIComponent(msgFull)}`;
+    try{
+      new QRCode(qrContainer,{text:sms,width:150,height:150,correctLevel:QRCode.CorrectLevel.L});
+    }catch(err){
+      console.error('QR generation error:',err);
+      qrContainer.innerHTML=`<p style='font-size:14px;color:#555;'>Couldn’t generate QR. Please text manually:<br><b>(586) 224-6692</b></p>`;
+    }
+  }
+
+  modal.style.display='flex';
+  setTimeout(()=>modal.classList.add('show'),50);
+});
+</script>
+</body>
+</html>
