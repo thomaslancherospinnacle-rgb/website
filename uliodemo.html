@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ulio AI — launch white-label AI receptionists for local businesses." />
+  <title>Ulio AI — AI Receptionists for Local Businesses</title>
+  <style>
+    :root{
+      --bg:#f8fafc;
+      --surface:#ffffff;
+      --surface-2:#f3f6fb;
+      --ink:#0b1736;
+      --muted:#5d6980;
+      --line:#dfe5ee;
+      --line-2:#e9edf3;
+      --navy:#0b2d63;
+      --navy-2:#153e7d;
+      --blue:#3869c8;
+      --green:#1e8e62;
+      --amber:#bb7a14;
+      --shadow:0 12px 35px rgba(12,30,61,.08);
+      --shadow-sm:0 6px 18px rgba(12,30,61,.06);
+      --radius:16px;
+      --radius-sm:11px;
+      --max:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:linear-gradient(180deg,#fff 0,#fbfcfe 20%,#f8fafc 100%);
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
+    .container{width:min(calc(100% - 40px),var(--max));margin:auto}
+    .section{padding:78px 0}
+    .section.compact{padding:54px 0}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:13px;font-weight:700;letter-spacing:.02em;
+      color:var(--navy-2);
+      background:#edf3fb;border:1px solid #dbe6f7;
+      padding:7px 10px;border-radius:999px;
+    }
+    h1,h2,h3,p{margin-top:0}
+    h1{
+      font-size:clamp(42px,5vw,72px);
+      line-height:1.02;
+      letter-spacing:-.045em;
+      margin-bottom:24px;
+      max-width:720px;
+    }
+    h2{
+      font-size:clamp(30px,3.2vw,44px);
+      line-height:1.08;
+      letter-spacing:-.035em;
+      margin-bottom:14px;
+    }
+    h3{font-size:18px;margin-bottom:6px}
+    .subhead{
+      color:var(--muted);
+      font-size:18px;
+      max-width:680px;
+    }
+    .section-head{
+      text-align:center;
+      max-width:760px;
+      margin:0 auto 38px;
+    }
+
+    /* nav */
+    .nav{
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(223,229,238,.9);
+    }
+    .nav-inner{
+      height:74px;display:flex;align-items:center;justify-content:space-between;gap:24px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:10px;
+      font-weight:800;font-size:22px;letter-spacing:-.03em;
+    }
+    .brand-mark{
+      width:32px;height:32px;border-radius:9px;
+      display:grid;place-items:center;
+      background:var(--navy);color:#fff;
+      font-size:14px;font-weight:800;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+    }
+    .nav-links{display:flex;align-items:center;gap:28px;font-size:14px;font-weight:600;color:#24304a}
+    .nav-actions{display:flex;gap:10px;align-items:center}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      min-height:46px;padding:0 18px;border-radius:9px;
+      border:1px solid var(--line);
+      background:#fff;color:var(--ink);font-weight:700;
+      cursor:pointer;transition:.2s ease;box-shadow:none;
+    }
+    .btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+    .btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+    .btn.ghost{background:#fff}
+    .btn.small{min-height:40px;padding:0 14px;font-size:13px}
+    .menu-btn{display:none}
+
+    /* hero */
+    .hero{padding:78px 0 72px}
+    .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:54px;align-items:center}
+    .hero-copy .subhead{max-width:650px}
+    .hero-actions{display:flex;gap:12px;margin:28px 0 30px;flex-wrap:wrap}
+    .play{
+      width:23px;height:23px;border:1.5px solid var(--navy-2);border-radius:50%;
+      display:grid;place-items:center;font-size:10px;padding-left:1px
+    }
+    .stat-row{
+      display:grid;grid-template-columns:repeat(3,1fr);
+      border:1px solid var(--line);border-radius:12px;background:#fff;
+      box-shadow:var(--shadow-sm);overflow:hidden;
+      max-width:650px;
+    }
+    .stat{padding:19px 18px;min-height:86px}
+    .stat+.stat{border-left:1px solid var(--line)}
+    .stat strong{display:block;font-size:22px;letter-spacing:-.03em}
+    .stat span{font-size:12px;color:var(--muted)}
+    .dashboard{
+      background:#fff;border:1px solid var(--line);
+      border-radius:16px;box-shadow:var(--shadow);
+      padding:11px;overflow:hidden;
+    }
+    .dash-shell{
+      display:grid;grid-template-columns:125px 1fr;min-height:500px;
+      border:1px solid var(--line-2);border-radius:11px;overflow:hidden;
+    }
+    .dash-sidebar{
+      background:#fbfcfe;border-right:1px solid var(--line-2);padding:14px 10px;
+    }
+    .dash-logo{font-weight:800;font-size:13px;margin:4px 7px 14px}
+    .dash-link{
+      display:flex;align-items:center;gap:7px;font-size:10px;color:#59657a;
+      padding:8px 8px;border-radius:6px;margin:2px 0;
+    }
+    .dash-link.active{background:#eaf1fb;color:var(--navy);font-weight:700}
+    .mini-icon{width:12px;height:12px;border:1.5px solid currentColor;border-radius:3px;opacity:.9}
+    .dash-main{padding:15px;background:#fff}
+    .dash-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+    .dash-top h3{font-size:15px;margin:0}
+    .dash-top p{font-size:9px;color:var(--muted);margin:2px 0 0}
+    .date-chip{font-size:8px;border:1px solid var(--line);border-radius:5px;padding:6px 7px;color:#536078}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .kpi,.panel{
+      border:1px solid var(--line-2);border-radius:8px;background:#fff;
+    }
+    .kpi{padding:8px}
+    .kpi small{font-size:7px;color:#68748a}
+    .kpi b{display:block;font-size:14px;margin-top:2px}
+    .delta{font-size:7px;color:var(--green);font-weight:700}
+    .dash-panels{display:grid;grid-template-columns:1.05fr 1fr 1fr;gap:8px;margin-top:8px}
+    .panel{padding:9px;min-height:174px}
+    .panel-title{font-size:8px;font-weight:800;margin-bottom:7px}
+    .lead-item{
+      display:flex;justify-content:space-between;gap:6px;
+      border-top:1px solid var(--line-2);padding:6px 0;
+    }
+    .lead-item:first-of-type{border-top:0}
+    .lead-item b{display:block;font-size:7px}
+    .lead-item span{font-size:6px;color:#7a8599}
+    .badge{height:14px;padding:0 5px;border-radius:99px;background:#fff2db;color:#9a6410;font-size:6px;display:flex;align-items:center}
+    .form-row{margin-bottom:7px}
+    .form-row label{display:block;font-size:6px;color:#7a8599}
+    .fake-input{font-size:7px;border:1px solid var(--line-2);padding:5px;border-radius:5px}
+    .mini-btn{font-size:6px;font-weight:700;color:#fff;background:var(--navy);padding:5px 7px;border-radius:4px;display:inline-block}
+    .donut{
+      width:90px;height:90px;border-radius:50%;
+      background:conic-gradient(var(--blue) 0 78%,#8da6d7 78% 88%,#c5d0e5 88% 95%,#e8edf5 95%);
+      margin:10px auto;position:relative;
+    }
+    .donut:after{
+      content:"1,248\A Total Calls";white-space:pre;position:absolute;inset:14px;
+      border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;
+      font-size:7px;font-weight:800;color:var(--ink);
+    }
+    .dash-bottom{display:grid;grid-template-columns:1.2fr .8fr;gap:8px;margin-top:8px}
+    .appointments{display:flex;flex-direction:column;gap:5px}
+    .appt{font-size:7px;border-top:1px solid var(--line-2);padding-top:5px}
+    .appt:first-child{border-top:0}
+    .revenue strong{font-size:18px}
+    .chart{
+      height:58px;margin-top:8px;border-radius:6px;
+      background:
+        linear-gradient(180deg,transparent 49%,#eef2f7 50%,transparent 51%),
+        linear-gradient(90deg,transparent 49%,#f0f3f8 50%,transparent 51%);
+      position:relative;overflow:hidden;
+    }
+    .chart svg{position:absolute;inset:0;width:100%;height:100%}
+
+    /* cards */
+    .cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{
+      background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);
+      padding:24px;box-shadow:0 2px 0 rgba(12,30,61,.015);
+    }
+    .step-card{display:grid;grid-template-columns:46px 1fr;gap:15px;align-items:start}
+    .icon-box{
+      width:46px;height:46px;border-radius:12px;border:1px solid #dce5f2;
+      display:grid;place-items:center;color:var(--navy-2);background:#fbfdff;
+    }
+    .step-num{
+      display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;
+      color:#fff;background:var(--blue);font-size:11px;font-weight:800;margin-bottom:10px;
+    }
+    .card p{color:var(--muted);font-size:14px;margin-bottom:0}
+    .feature-wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-top:38px}
+    .feature-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+    .feature{
+      padding:20px 15px;min-height:155px;text-align:center;border-right:1px solid var(--line);border-bottom:1px solid var(--line)
+    }
+    .feature:nth-child(4n){border-right:0}
+    .feature:nth-last-child(-n+4){border-bottom:0}
+    .feature svg{width:26px;height:26px;margin-bottom:12px;stroke:var(--blue)}
+    .feature b{display:block;font-size:13px}
+    .feature span{display:block;font-size:11px;color:var(--muted);margin-top:5px}
+    .benefits{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+    .benefit{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:19px 15px;border-bottom:1px solid var(--line)}
+    .benefit:nth-child(odd){border-right:1px solid var(--line)}
+    .benefit:nth-last-child(-n+2){border-bottom:0}
+    .benefit .icon-box{width:34px;height:34px;border-radius:9px}
+    .benefit b{font-size:12px}
+    .benefit span{display:block;font-size:10px;color:var(--muted);margin-top:3px}
+
+    .industries{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:26px}
+    .industry{
+      padding:10px 14px;border:1px solid var(--line);background:#fff;border-radius:8px;
+      font-size:13px;font-weight:700;color:#2b3851;box-shadow:0 1px 0 rgba(12,30,61,.02)
+    }
+
+    /* comparison */
+    .comparison{
+      overflow:hidden;border:1px solid var(--line);border-radius:11px;background:#fff;margin-top:28px
+    }
+    .comp-row{display:grid;grid-template-columns:1fr 1fr}
+    .comp-row>div{padding:13px 20px;font-size:13px;border-top:1px solid var(--line-2)}
+    .comp-row>div+div{border-left:1px solid var(--line-2)}
+    .comp-head{background:var(--navy);color:#fff;font-weight:800}
+    .comp-head>div{border:0!important;text-align:center}
+    .comp-row:nth-child(even):not(.comp-head){background:#f9fbfd}
+
+    /* pricing */
+    .pricing-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;align-items:stretch}
+    .price-card{
+      position:relative;background:#fff;border:1px solid var(--line);border-radius:12px;
+      padding:25px 17px 18px;text-align:center;display:flex;flex-direction:column;
+      min-height:330px;
+    }
+    .price-card.popular{border-color:#a9bfeb;box-shadow:var(--shadow-sm)}
+    .popular-tag{
+      position:absolute;left:-1px;right:-1px;top:-1px;height:26px;
+      border-radius:12px 12px 0 0;background:var(--blue);color:#fff;
+      font-size:10px;font-weight:800;display:grid;place-items:center;
+    }
+    .price-card.popular{padding-top:40px}
+    .price-card h3{font-size:18px}
+    .price-card .desc{font-size:12px;color:var(--muted);min-height:38px}
+    .price{font-size:34px;font-weight:800;letter-spacing:-.04em;margin:12px 0}
+    .price small{font-size:13px;color:var(--muted);font-weight:700}
+    .price-list{font-size:12px;color:#4e5c75;display:flex;flex-direction:column;gap:7px;margin:8px 0 20px}
+    .price-card .btn{margin-top:auto}
+
+    /* testimonials */
+    .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .testimonial{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px}
+    .person{display:flex;gap:11px;align-items:center;margin-bottom:13px}
+    .avatar{
+      width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+      font-weight:800;background:#e9eef6;color:var(--navy);border:1px solid #dce3ee;
+    }
+    .stars{letter-spacing:1px;color:#bb7a14;font-size:12px}
+    .quote{font-size:14px;color:#3c4961;margin-bottom:17px}
+    .person-name{font-weight:800;font-size:13px}
+    .role{font-size:11px;color:var(--muted)}
+    .faq{max-width:760px;margin:28px auto 0;display:flex;flex-direction:column;gap:10px}
+    .faq-item{
+      border:1px solid var(--line);border-radius:9px;background:#fff;overflow:hidden
+    }
+    .faq-q{
+      width:100%;border:0;background:#fff;padding:17px 18px;text-align:left;
+      display:flex;justify-content:space-between;align-items:center;font-weight:800;color:var(--ink);cursor:pointer
+    }
+    .faq-a{display:none;padding:0 18px 18px;color:var(--muted);font-size:14px}
+    .faq-item.open .faq-a{display:block}
+    .faq-item.open .chev{transform:rotate(180deg)}
+    .chev{transition:.2s}
+    footer{border-top:1px solid var(--line);background:#fff}
+    .footer-inner{min-height:115px;display:flex;justify-content:space-between;gap:25px;align-items:center}
+    .footer-links{display:flex;gap:22px;font-size:13px;color:#4b5870}
+    .copyright{font-size:12px;color:#8590a3}
+
+    @media(max-width:1050px){
+      .hero-grid{grid-template-columns:1fr}
+      .dashboard{max-width:760px;margin:0 auto}
+      .feature-wrap{grid-template-columns:1fr}
+      .pricing-grid{grid-template-columns:repeat(3,1fr)}
+      .nav-links{display:none}
+      .menu-btn{display:inline-flex}
+    }
+    @media(max-width:760px){
+      .container{width:min(calc(100% - 28px),var(--max))}
+      .section{padding:58px 0}
+      .hero{padding-top:52px}
+      .nav-actions .ghost,.nav-actions .primary{display:none}
+      .stat-row{grid-template-columns:1fr}
+      .stat+.stat{border-left:0;border-top:1px solid var(--line)}
+      .cards-3{grid-template-columns:1fr}
+      .feature-grid{grid-template-columns:repeat(2,1fr)}
+      .feature:nth-child(2n){border-right:0}
+      .feature:nth-child(4n){border-right:0}
+      .feature:nth-last-child(-n+4){border-bottom:1px solid var(--line)}
+      .feature:nth-last-child(-n+2){border-bottom:0}
+      .benefits{grid-template-columns:1fr}
+      .benefit:nth-child(odd){border-right:0}
+      .benefit:nth-last-child(-n+2){border-bottom:1px solid var(--line)}
+      .benefit:last-child{border-bottom:0}
+      .pricing-grid{grid-template-columns:1fr}
+      .testimonials{grid-template-columns:1fr}
+      .comp-row>div{padding:11px 12px;font-size:11px}
+      .dash-shell{grid-template-columns:84px 1fr}
+      .dash-sidebar{padding:10px 6px}
+      .dash-link{font-size:8px;padding:7px 5px}
+      .dash-main{padding:10px}
+      .kpis{grid-template-columns:repeat(2,1fr)}
+      .dash-panels{grid-template-columns:1fr}
+      .dash-bottom{grid-template-columns:1fr}
+      .footer-inner{flex-direction:column;align-items:flex-start;padding:28px 0}
+      .footer-links{flex-wrap:wrap}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">U</span>
+        <span>Ulio AI</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#platform">Platform</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#resources">Resources</a>
+        <a href="#login">Login</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn ghost small" href="#pricing">View Pricing</a>
+        <a class="btn primary small" href="#cta">Become a Partner</a>
+        <button class="btn small menu-btn" id="menuBtn" aria-label="Open menu">Menu</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">White-label AI phone automation</span>
+          <h1>Launch AI Receptionists for Local Businesses</h1>
+          <p class="subhead">
+            Ulio AI helps partners find businesses that need better phone coverage, create AI voice agents from a company website, and resell those agents under their own brand for recurring monthly revenue.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#cta">Become a Partner</a>
+            <a class="btn ghost" href="#platform"><span class="play">▶</span> Watch Demo</a>
+          </div>
+          <div class="stat-row" aria-label="Key stats">
+            <div class="stat"><strong>400+</strong><span>active partners</span></div>
+            <div class="stat"><strong>100+</strong><span>lead opportunities daily</span></div>
+            <div class="stat"><strong>$300–$500/mo</strong><span>typical client pricing</span></div>
+          </div>
+        </div>
+
+        <div class="dashboard" aria-label="Ulio product dashboard mockup">
+          <div class="dash-shell">
+            <aside class="dash-sidebar">
+              <div class="dash-logo">Ulio AI</div>
+              <div class="dash-link active"><span class="mini-icon"></span>Overview</div>
+              <div class="dash-link"><span class="mini-icon"></span>Leads</div>
+              <div class="dash-link"><span class="mini-icon"></span>AI Agents</div>
+              <div class="dash-link"><span class="mini-icon"></span>Call Activity</div>
+              <div class="dash-link"><span class="mini-icon"></span>Appointments</div>
+              <div class="dash-link"><span class="mini-icon"></span>Contacts</div>
+              <div class="dash-link"><span class="mini-icon"></span>Billing</div>
+              <div class="dash-link"><span class="mini-icon"></span>Reports</div>
+              <div class="dash-link"><span class="mini-icon"></span>Settings</div>
+            </aside>
+            <div class="dash-main">
+              <div class="dash-top">
+                <div><h3>Overview</h3><p>Welcome back, Partner.</p></div>
+                <div class="date-chip">May 12 – May 18, 2026</div>
+              </div>
+              <div class="kpis">
+                <div class="kpi"><small>Total Leads</small><b>128</b><span class="delta">+18%</span></div>
+                <div class="kpi"><small>Active Agents</small><b>36</b><span class="delta">+12%</span></div>
+                <div class="kpi"><small>Calls Handled</small><b>1,248</b><span class="delta">+15%</span></div>
+                <div class="kpi"><small>Monthly Revenue</small><b>$18,760</b><span class="delta">+20%</span></div>
+              </div>
+
+              <div class="dash-panels">
+                <div class="panel">
+                  <div class="panel-title">Recent Leads</div>
+                  <div class="lead-item"><div><b>Bright Smiles Dental</b><span>Toronto, ON</span></div><div class="badge">High</div></div>
+                  <div class="lead-item"><div><b>Northside Auto Repair</b><span>Chicago, IL</span></div><div class="badge">High</div></div>
+                  <div class="lead-item"><div><b>Riverbend Plumbing</b><span>Austin, TX</span></div><div class="badge">Med</div></div>
+                  <div class="lead-item"><div><b>Elite Legal Group</b><span>Phoenix, AZ</span></div><div class="badge">Med</div></div>
+                </div>
+                <div class="panel">
+                  <div class="panel-title">Voice Agent Settings</div>
+                  <div class="form-row"><label>Agent Name</label><div class="fake-input">Bright Smiles AI</div></div>
+                  <div class="form-row"><label>Voice</label><div class="fake-input">Ava · Natural</div></div>
+                  <div class="form-row"><label>Language</label><div class="fake-input">English (US)</div></div>
+                  <div class="form-row"><label>Knowledge Source</label><div class="fake-input">brightsmilesdental.com</div></div>
+                  <span class="mini-btn">Update Agent</span>
+                </div>
+                <div class="panel">
+                  <div class="panel-title">Call Activity</div>
+                  <div class="donut"></div>
+                </div>
+              </div>
+
+              <div class="dash-bottom">
+                <div class="panel">
+                  <div class="panel-title">Upcoming Appointments</div>
+                  <div class="appointments">
+                    <div class="appt"><b>May 19, 10:00 AM</b> · Cleaning — Sarah J.</div>
+                    <div class="appt"><b>May 19, 2:30 PM</b> · Consultation — Mike R.</div>
+                    <div class="appt"><b>May 20, 11:00 AM</b> · Follow-up — Jessica L.</div>
+                  </div>
+                </div>
+                <div class="panel revenue">
+                  <div class="panel-title">Revenue This Month</div>
+                  <strong>$18,760</strong><div class="delta">+20% vs last month</div>
+                  <div class="chart">
+                    <svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true">
+                      <polyline points="0,51 18,44 36,47 55,35 73,40 92,27 110,29 129,20 147,26 166,12 183,15 200,4" fill="none" stroke="#3869c8" stroke-width="2.5"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact" id="platform">
+      <div class="container">
+        <div class="section-head">
+          <h2>How It Works</h2>
+          <p class="subhead">A simple workflow for turning local-business phone demand into a managed AI service.</p>
+        </div>
+        <div class="cards-3">
+          <article class="card step-card">
+            <div class="icon-box">⌕</div>
+            <div><span class="step-num">1</span><h3>Find demand</h3><p>Surface local businesses that are actively looking for better phone coverage and customer-response automation.</p></div>
+          </article>
+          <article class="card step-card">
+            <div class="icon-box">✦</div>
+            <div><span class="step-num">2</span><h3>Build in minutes</h3><p>Paste a company website and generate a voice agent with business knowledge, call flows, and service details.</p></div>
+          </article>
+          <article class="card step-card">
+            <div class="icon-box">$</div>
+            <div><span class="step-num">3</span><h3>Start recurring revenue</h3><p>Connect the business phone line, set your pricing, and manage an ongoing monthly service under your brand.</p></div>
+          </article>
+        </div>
+
+        <div class="feature-wrap" id="solutions">
+          <div>
+            <h2 style="font-size:28px">What Your AI Receptionist Handles</h2>
+            <div class="feature-grid">
+              <div class="feature"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5c0 8 7 15 15 15l2-4-5-2-2 2c-3-1-6-4-7-7l2-2-2-5-3 3z" stroke-width="1.7"/></svg><b>24/7 answering</b><span>Capture calls day, night, weekends, and after hours.</span></div>
+              <div class="feature"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0 1 16 0v5a2 2 0 0 1-2 2h-2v-6h4M4 13h4v6H6a2 2 0 0 1-2-2v-4z" stroke-width="1.7"/></svg><b>Natural voice conversations</b><span>Human-like interactions designed to feel clear and helpful.</span></div>
+              <div class="feature"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="2" stroke-width="1.7"/><path d="M8 3v4M16 3v4M4 10h16" stroke-width="1.7"/></svg><b>Appointment scheduling</b><span>Book, reschedule, and manage appointments on connected calendars.</span></div>
+              <div class="feature"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-7l-5 4v-4H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" stroke-width="1.7"/></svg><b>SMS follow-up</b><span>Send confirmations, reminders, and next-step messages automatically.</span></div>
+              <div class="feature"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke-width="1.7"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" stroke-width="1.7"/></svg><b>Multilingual support</b><span>Serve callers in multiple languages from the same workflow.</span></div>
+              <div class="feature"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h12v18H6zM9 8h6M9 12h6M9 16h4" stroke-width="1.7"/></svg><b>Call summaries and notes</b><span>Keep concise records of what happened and what needs follow-up.</span></div>
+              <div class="feature"><svg viewBox="0 0 24 24" fill="none"><path d="M5 18V8a7 7 0 0 1 14 0v10M3 18h4v3H3zM17 18h4v3h-4z" stroke-width="1.7"/></svg><b>Overflow & after-hours</b><span>Protect opportunities when staff are busy or the office is closed.</span></div>
+              <div class="feature"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4zM9 12l2 2 4-4" stroke-width="1.7"/></svg><b>Consistent call handling</b><span>Follow the same scripts, policies, and routing logic every time.</span></div>
+            </div>
+          </div>
+
+          <div>
+            <h2 style="font-size:28px">Why Partners Choose Ulio</h2>
+            <div class="benefits">
+              <div class="benefit"><div class="icon-box">⚙</div><div><b>No-code setup</b><span>Launch agents without building custom software.</span></div></div>
+              <div class="benefit"><div class="icon-box">◇</div><div><b>White-label offering</b><span>Present the service as part of your own business.</span></div></div>
+              <div class="benefit"><div class="icon-box">⌕</div><div><b>Lead discovery built in</b><span>Work from a steady pipeline of potential buyers.</span></div></div>
+              <div class="benefit"><div class="icon-box">$</div><div><b>Automated billing tools</b><span>Manage plans, invoices, and recurring payments.</span></div></div>
+              <div class="benefit"><div class="icon-box">↗</div><div><b>Fast deployment</b><span>Move from a website to a configured agent quickly.</span></div></div>
+              <div class="benefit"><div class="icon-box">▦</div><div><b>Recurring revenue model</b><span>Build predictable monthly client relationships.</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:42px">
+          <div class="section-head" style="margin-bottom:18px">
+            <h2 style="font-size:28px">Ideal for Service Businesses</h2>
+          </div>
+          <div class="industries">
+            <span class="industry">Auto repair</span><span class="industry">Medical</span><span class="industry">Dental</span>
+            <span class="industry">Legal</span><span class="industry">Real estate</span><span class="industry">Salons & spas</span>
+            <span class="industry">Restaurants</span><span class="industry">Car dealerships</span><span class="industry">Contractors</span>
+            <span class="industry">Insurance</span><span class="industry">Veterinary</span><span class="industry">HVAC</span>
+            <span class="industry">Plumbing</span><span class="industry">Electrical</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact">
+      <div class="container">
+        <div class="section-head">
+          <h2>AI Receptionist vs Traditional Front Desk</h2>
+          <p class="subhead">A practical comparison for businesses evaluating how to cover inbound calls.</p>
+        </div>
+        <div class="comparison">
+          <div class="comp-row comp-head"><div>AI Receptionist with Ulio AI</div><div>Traditional Front Desk</div></div>
+          <div class="comp-row"><div>Always available</div><div>Limited to office hours</div></div>
+          <div class="comp-row"><div>Lower monthly operating cost</div><div>Full payroll expense</div></div>
+          <div class="comp-row"><div>Handles many calls at once</div><div>One call at a time</div></div>
+          <div class="comp-row"><div>Fast onboarding</div><div>Manual staff training</div></div>
+          <div class="comp-row"><div>Predictable consistency</div><div>Variable human performance</div></div>
+          <div class="comp-row"><div>Easy scaling</div><div>Hiring more staff</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="container">
+        <div class="section-head">
+          <h2>Simple Plans</h2>
+          <p class="subhead">Start small, then move up as your client base and call volume grow.</p>
+        </div>
+        <div class="pricing-grid">
+          <div class="price-card">
+            <h3>Starter</h3><div class="desc">For testing the platform and launching your first agent.</div>
+            <div class="price">$18<small>/mo</small></div>
+            <div class="price-list"><span>1 AI agent</span><span>Entry-level usage</span><span>Core platform tools</span></div>
+            <a class="btn" href="#cta">Get Started</a>
+          </div>
+          <div class="price-card">
+            <h3>Growth</h3><div class="desc">For partners building a small book of local clients.</div>
+            <div class="price">$47<small>/mo</small></div>
+            <div class="price-list"><span>Multiple agents</span><span>More included usage</span><span>Expanded tools</span></div>
+            <a class="btn" href="#cta">Get Started</a>
+          </div>
+          <div class="price-card popular">
+            <div class="popular-tag">Most Popular</div>
+            <h3>Scale</h3><div class="desc">For steady demand and an actively growing client base.</div>
+            <div class="price">$65<small>/mo</small></div>
+            <div class="price-list"><span>More active agents</span><span>Higher usage capacity</span><span>Priority support</span></div>
+            <a class="btn primary" href="#cta">Get Started</a>
+          </div>
+          <div class="price-card">
+            <h3>Empire</h3><div class="desc">For higher-volume operators managing many accounts.</div>
+            <div class="price">$86<small>/mo</small></div>
+            <div class="price-list"><span>High agent capacity</span><span>Large call allowance</span><span>Advanced reporting</span></div>
+            <a class="btn" href="#cta">Get Started</a>
+          </div>
+          <div class="price-card">
+            <h3>Legacy</h3><div class="desc">For larger agencies and enterprise-style usage.</div>
+            <div class="price">$124<small>/mo</small></div>
+            <div class="price-list"><span>Agency-scale access</span><span>Maximum usage tier</span><span>Dedicated support</span></div>
+            <a class="btn" href="#cta">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact" id="resources">
+      <div class="container">
+        <div class="section-head">
+          <h2>Built for Operators, Marketers, and Agencies</h2>
+          <p class="subhead">A productized service that can fit naturally into an existing local-business offer.</p>
+        </div>
+        <div class="testimonials">
+          <article class="testimonial">
+            <div class="person"><div class="avatar">JM</div><div><div class="stars">★★★★★</div><div class="person-name">Jason Miller</div><div class="role">Agency Owner</div></div></div>
+            <p class="quote">“The recurring model fits our agency well. Clients get a fast launch and a professional phone experience without us building custom infrastructure.”</p>
+          </article>
+          <article class="testimonial">
+            <div class="person"><div class="avatar">SL</div><div><div class="stars">★★★★★</div><div class="person-name">Stephanie Lopez</div><div class="role">Digital Marketer</div></div></div>
+            <p class="quote">“Setup is fast enough that I can demonstrate value to a local business almost immediately, then refine the agent around their workflow.”</p>
+          </article>
+          <article class="testimonial">
+            <div class="person"><div class="avatar">DK</div><div><div class="stars">★★★★★</div><div class="person-name">Daniel Kim</div><div class="role">Entrepreneur</div></div></div>
+            <p class="quote">“The lead-discovery side removes a lot of guesswork. I can spend more time qualifying businesses that already have a phone-coverage problem.”</p>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top:58px;margin-bottom:0">
+          <h2 style="font-size:30px">Frequently Asked Questions</h2>
+        </div>
+        <div class="faq">
+          <div class="faq-item">
+            <button class="faq-q">Do I need coding experience?<span class="chev">⌄</span></button>
+            <div class="faq-a">No. The concept is designed around configuring agents through a guided interface rather than building a voice stack from scratch.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">How do partners find clients?<span class="chev">⌄</span></button>
+            <div class="faq-a">Partners can use Ulio’s lead-discovery workflow alongside their own prospecting, referrals, paid media, or existing customer base.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">What kinds of businesses are a good fit?<span class="chev">⌄</span></button>
+            <div class="faq-a">Businesses that depend on inbound calls, appointments, estimates, or after-hours response are natural candidates.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cta">
+      <div class="container">
+        <div class="card" style="padding:48px;text-align:center;background:#0b2d63;color:#fff;border-color:#0b2d63">
+          <span class="eyebrow" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.15);color:#fff">Build your AI receptionist offer</span>
+          <h2 style="margin-top:16px">Launch your first Ulio AI agent</h2>
+          <p style="color:#cbd7ea;max-width:650px;margin:0 auto 24px">Create a clean, managed AI phone experience for local businesses and package it as a recurring service under your own brand.</p>
+          <a class="btn" href="#pricing">Choose a Plan</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="login">
+    <div class="container footer-inner">
+      <div class="brand"><span class="brand-mark">U</span><span>Ulio AI</span></div>
+      <div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#pricing">Pricing</a><a href="mailto:hello@ulio.ai">Contact</a></div>
+      <div class="copyright">© 2026 Ulio AI. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+
+    document.getElementById('menuBtn')?.addEventListener('click', () => {
+      const links = ['Platform','#platform','Solutions','#solutions','Pricing','#pricing','Resources','#resources'];
+      const current = document.getElementById('mobileMenu');
+      if (current) { current.remove(); return; }
+      const menu = document.createElement('div');
+      menu.id = 'mobileMenu';
+      menu.style.cssText = 'position:fixed;top:74px;left:14px;right:14px;background:white;border:1px solid #dfe5ee;border-radius:12px;box-shadow:0 15px 40px rgba(12,30,61,.12);padding:10px;z-index:60';
+      for(let i=0;i<links.length;i+=2){
+        const a=document.createElement('a');
+        a.href=links[i+1];
+        a.textContent=links[i];
+        a.style.cssText='display:block;padding:13px 12px;font-weight:700;border-radius:8px';
+        a.onclick=()=>menu.remove();
+        menu.appendChild(a);
+      }
+      document.body.appendChild(menu);
+    });
+  </script>
+</body>
+</html>
